@@ -9,7 +9,9 @@
 		"--cap-add=SYS_PTRACE",
 		"--security-opt", "seccomp=unconfined"
 	],
-	"appPort": [8080],
+	
+	// Uncomment the next line if you want to publish any ports.
+	"appPort": ["8080"],
 
 	// Uncomment the next line to run commands after the container is created.
 	"postCreateCommand": "go version"
