@@ -1,24 +1,18 @@
 
-# Created by https://www.gitignore.io/api/go,visualstudiocode
-# Edit at https://www.gitignore.io/?templates=go,visualstudiocode
+# Created by https://www.gitignore.io/api/fsharp,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=fsharp,visualstudiocode
 
-### Go ###
-# Binaries for programs and plugins
+### fsharp ###
+lib/debug
+lib/release
+Debug
+*.suo
+*.user
+obj
+bin
+/build/
 *.exe
-*.exe~
-*.dll
-*.so
-*.dylib
-
-# Test binary, built with `go test -c`
-*.test
-
-# Output of the go coverage tool, specifically when used with LiteIDE
-*.out
-
-### Go Patch ###
-/vendor/
-/Godeps/
+!.paket/paket.bootstrapper.exe
 
 ### VisualStudioCode ###
 .vscode/*
@@ -31,4 +25,4 @@
 # Ignore all local history of files
 .history
 
-# End of https://www.gitignore.io/api/go,visualstudiocode
+# End of https://www.gitignore.io/api/fsharp,visualstudiocode
