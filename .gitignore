@@ -13,7 +13,7 @@ bin
 /build/
 *.exe
 !.paket/paket.bootstrapper.exe
-
+.fake/
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
