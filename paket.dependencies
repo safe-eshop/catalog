@@ -1,5 +1,28 @@
 source https://www.nuget.org/api/v2
 
+nuget FSharp.Core
+nuget Microsoft.AspNetCore.App 2.2.6
+nuget Giraffe
+nuget Giraffe.SerilogExtensions
+nuget TaskBuilder.fs
+nuget Jaeger
+nuget AspNetCore.HealthChecks.UI.Client
+nuget AspNetCore.HealthChecks.Redis
+nuget AspNetCore.HealthChecks.RabbitMQ
+nuget StackExchange.Redis
+nuget EasyNetQ.DI.Microsoft
+nuget Serilog
+nuget Serilog.Extensions.Logging
+nuget Serilog.Enrichers.Process
+nuget Serilog.Enrichers.Thread
+nuget Serilog.Enrichers.Environment
+nuget Serilog.Sinks.Async
+nuget Serilog.Sinks.Trace
+nuget Serilog.Sinks.ElasticSearch
+nuget Serilog.Sinks.ColoredConsole
+nuget Serilog.AspNetCore
+nuget Serilog.Exceptions
+nuget Serilog.Enrichers.Demystify
 
 // [ FAKE GROUP ]
 group Build
