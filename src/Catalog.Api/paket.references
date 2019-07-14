@@ -1,14 +1,10 @@
--FSharp.Core
+FSharp.Core
 Microsoft.AspNetCore.App
 Giraffe
 Giraffe.SerilogExtensions
 TaskBuilder.fs
 Jaeger
 AspNetCore.HealthChecks.UI.Client
-AspNetCore.HealthChecks.Redis
-AspNetCore.HealthChecks.RabbitMQ
-StackExchange.Redis
-EasyNetQ.DI.Microsoft
 Serilog
 Serilog.Extensions.Logging
 Serilog.Enrichers.Process

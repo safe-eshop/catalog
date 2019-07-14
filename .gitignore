@@ -24,5 +24,5 @@ paket-files/
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
-
+packages/
 # End of https://www.gitignore.io/api/fsharp,visualstudiocode
