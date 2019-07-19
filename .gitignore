@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/fsharp,visualstudiocode
-# Edit at https://www.gitignore.io/?templates=fsharp,visualstudiocode
+# Created by https://www.gitignore.io/api/go,fsharp,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=go,fsharp,visualstudiocode
 
 ### fsharp ###
 lib/debug
@@ -13,16 +13,33 @@ bin
 /build/
 *.exe
 !.paket/paket.bootstrapper.exe
-.fake/
+
+### Go ###
+# Binaries for programs and plugins
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+### Go Patch ###
+/vendor/
+/Godeps/
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-paket-files/
+
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
-packages/
-# End of https://www.gitignore.io/api/fsharp,visualstudiocode
+
+# End of https://www.gitignore.io/api/go,fsharp,visualstudiocode
