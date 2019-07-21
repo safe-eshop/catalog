@@ -30,7 +30,7 @@ bin
 ### Go Patch ###
 /vendor/
 /Godeps/
-
+.ionide/
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
