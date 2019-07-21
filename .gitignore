@@ -20,7 +20,10 @@ bin
 *.dll
 *.so
 *.dylib
-
+paket-files/
+.fake/
+paket.lock
+packages/
 # Test binary, built with `go test -c`
 *.test
 
