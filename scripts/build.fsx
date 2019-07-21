@@ -25,6 +25,7 @@ type Tag = string * bool
 type Tags = Tag seq
 
 let dockerUsername = lazy(Environment.environVarOrFail "DOCKER_USERNAME")
+let dockerOrganization = lazy(Environment.environVarOrFail "DOCKER_ORGANIZATIOM")
 let dockerPassword = lazy(Environment.environVarOrFail "DOCKER_PASSWORD")
 
 type DockerFile = { path: string; imageName: string }
@@ -95,7 +96,7 @@ Target.create "Docker:Build" (fun _ ->
 Target.create "Docker:Tag" (fun _ ->
     for image in files do
         for (tag, _) in tags.Value do
-            Docker.tag(fun x -> { x with Organization = dockerUsername.Value; ImageName = image.imageName; ImageTag = "latest"; Tag = tag }) |> ignore
+            Docker.tag(fun x -> { x with Organization = dockerOrganization.Value; ImageName = image.imageName; ImageTag = "latest"; Tag = tag }) |> ignore
 )
 
 Target.create "Docker:Login" (fun _ ->

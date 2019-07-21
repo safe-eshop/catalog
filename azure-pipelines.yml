@@ -1,9 +1,9 @@
-resources:
-  - repo: self
+pool:
+  vmImage: 'Ubuntu 16.04'
+
 variables:
-  - group: ContainerConfiguration
-queue:
-  name: RossmannV5Docker
+  - group: Docker
+
 steps:
   - task: DotNetCoreInstaller@0
     displayName: 'Use .NET Core sdk 2.2.203'
