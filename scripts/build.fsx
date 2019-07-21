@@ -52,7 +52,8 @@ let getBranch (sha: string)(branchName: string) =
 let buildType = lazy ( 
     match Environment.environVarOrNone "BUILD_BUILDNUMBER" with 
     | Some bId -> 
-        let branch = getBranch (Information.getCurrentSHA1(".")) (Environment.environVarOrDefault "BUILD_SOURCEBRANCH" (Information.getBranchName(".")))
+        let name = Environment.environVarOrDefault "BUILD_SOURCEBRANCH" (Information.getBranchName("."))
+        let branch = getBranch (Information.getCurrentSHA1(".")) (name.Replace("refs/heads/", ""))
         let buildNumber = Environment.environVarOrDefault "BUILD_NUMBER" "1"
         let repoName = Environment.environVarOrDefault "REPOSITORY_NAME" "Unknown_Repo"
         AzureDevOps({ branch = branch; buildId = bId; buildNumber = buildNumber; repoName = repoName})
