@@ -115,7 +115,7 @@ Target.create "Docker:Push" (fun _ ->
                              | None -> true
                          | _ -> true)
             if canPush then
-                Docker.push(fun x -> { x with UserName = dockerUsername.Value; Password = dockerPassword.Value; Organization = dockerUsername.Value; ImageName = image.imageName; Tag = tag; }) |> ignore
+                Docker.push(fun x -> { x with UserName = dockerUsername.Value; Password = dockerPassword.Value; Organization = dockerOrganization.Value; ImageName = image.imageName; Tag = tag; }) |> ignore
             else
                 failwith (sprintf "Can't overwrite image [%s] tag [%s] on docker hub!!!!!!!!!!!!!!!!!!!!!!!!!" image.imageName tag)
 )
