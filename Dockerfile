@@ -3,6 +3,7 @@ ADD . /app/backend
 WORKDIR /app/backend
 RUN go mod download
 RUN go get -u github.com/gin-gonic/gin
+RUN go get github.com/google/uuid
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o /main .
 
 # final stage

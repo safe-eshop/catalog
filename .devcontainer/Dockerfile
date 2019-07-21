@@ -22,6 +22,7 @@ RUN apt-get update \
     # 
     # Install Project Libraries
     && go get -u github.com/gin-gonic/gin \
+    && go get github.com/google/uuid \
     #
     # Install Go tools
     && go get -u -v \
