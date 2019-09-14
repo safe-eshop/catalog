@@ -1,0 +1,17 @@
+[package]
+name = "catalog"
+version = "0.1.0"
+authors = ["dominikus1993 <dominikus1910@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix-web = "1.0.7"
+actix-rt = "0.2.5"
+env_logger = "0.6.2"
+futures = "0.1.29"
+serde_json = "1.0.40"
+serde_derive = "1.0.100"
+serde = "1.0.100"
+diesel = { version = "1.4.2", features = ["postgres"] }
