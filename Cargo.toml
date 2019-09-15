@@ -14,4 +14,5 @@ futures = "0.1.29"
 serde_json = "1.0.40"
 serde_derive = "1.0.100"
 serde = "1.0.100"
+cpuprofiler = "0.0.3"
 diesel = { version = "1.4.2", features = ["postgres"] }
