@@ -1,39 +1,30 @@
-// For format details, see https://aka.ms/vscode-remote/devcontainer.json or the definition README at
-// https://github.com/microsoft/vscode-dev-containers/tree/master/containers/rust
+// If you want to run as a non-root user in the container, see .devcontainer/docker-compose.yml.
 {
-	"name": "Rust",
+	"name": "Node.js & Postgres",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "web",
 	"workspaceFolder": "/workspace",
-	"runArgs": [
-		// Uncomment the next line to use a non-root user. On Linux, this will prevent
-		// new files getting created as root, but you may need to update the USER_UID
-		// and USER_GID in .devcontainer/Dockerfile to match your user if not 1000.
-		// "-u", "vscode",
-
-		"--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"
-	],
 
 	// Use 'settings' to set *default* container specific settings.json values on container create. 
 	// You can edit these settings after create using File > Preferences > Settings > Remote.
 	"settings": { 
-		"terminal.integrated.shell.linux": "/bin/bash",
-		"lldb.adapterType": "bundled",
-		"lldb.executable": "/usr/bin/lldb"
+		"terminal.integrated.shell.linux": "/bin/bash"
 	},
 
-	// Uncomment the next line if you want to publish any ports.
-	// "appPort": [],
+	// Uncomment the next line if you want start specific services in your Docker Compose config.
+	// "runServices": [],
+
+	// Uncomment the line below if you want to keep your containers running after VS Code shuts down.
+	// "shutdownAction": "none",
 
 	// Uncomment the next line to run commands after the container is created.
-	// "postCreateCommand": "rustc --version"
+	// "postCreateCommand": "npm install",
 
 	// Add the IDs of extensions you want installed when the container is created in the array below.
 	"extensions": [
-		"rust-lang.rust",
-		"bungcip.better-toml",
-		"vadimcn.vscode-lldb",
-		"mtxr.sqltools",
-		"serayuzgur.crates"
+		"dbaeumer.vscode-eslint",
+		"visualstudioexptteam.vscodeintellicode",
+		"ms-vscode.vscode-typescript-tslint-plugin",
+		"christian-kohler.path-intellisense"
 	]
 }
