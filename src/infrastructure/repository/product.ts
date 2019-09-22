@@ -1,7 +1,7 @@
-import { IProductRepository } from "../../domain/repository/product";
-
+import { IProductRepository, } from "../../domain/repository/product";
+import { Product } from "../../domain/model/product"
 export class PostgresProductRepository implements IProductRepository {
-    get(id: string): import("../../domain/model/product").Product {
+    get(id: string): Product {
         throw new Error("Method not implemented.");
     }
 
