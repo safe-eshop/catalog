@@ -1,18 +1,16 @@
 // Require the framework and instantiate it
-const fastify = require('fastify')({ logger: true })
+import fastify from "fastify"
 
-// Declare a route
-fastify.get('/', async (request, reply) => {
-  return { hello: 'spierdalaj chuju' }
-})
-
+const server = fastify({ logger: true })
+server.register(require("./application/endpoints/product.ts"))
 // Run the server!
 const start = async () => {
   try {
-    await fastify.listen(process.env.PORT?.f || 3000)
-    fastify.log.info(`server listening on ${fastify.server.address().port}`)
+    await server.listen((process.env.PORT || 3000) as number)
+
+    server.log.info(`server listening on ${server.server.address()}`)
   } catch (err) {
-    fastify.log.error(err)
+    server.log.error(err)
     process.exit(1)
   }
 }

@@ -12,12 +12,9 @@ export class ProductService implements IProductService {
         
     }
 
-    getAll(): Product[] {
-        const res = this.repo.getAll();
-        if(res === null) {
-            return [];
-        }
-        return [];
+    async getAll(): Promise<Product[]> {
+        const res = await this.repo.getAll() || [];
+        return res;
     }
 
 }

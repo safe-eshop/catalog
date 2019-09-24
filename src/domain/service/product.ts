@@ -1,5 +1,5 @@
 import { Product } from "../model/product";
 
 export interface IProductService {
-    getAll(): Product[]
+    getAll(): Promise<Product[]>
 }
