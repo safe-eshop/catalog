@@ -7,13 +7,13 @@ const app = new Koa()
 const router = new Router()
 
 router.get("/", async (ctx, next) => {
-    ctx.body = { message: "Test"}
+    ctx.body = { message: "Test"};
     await next();
-})
+});
 
 
-app.use(json())
-app.use(logger())
+app.use(json());
+app.use(logger());
 app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(3000, () => {
