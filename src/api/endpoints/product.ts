@@ -1,14 +1,12 @@
-import {FastifyInstance} from "fastify"
-import { Server, IncomingMessage, ServerResponse } from "http"
-import { IProductService } from "../../domain/service/product"
-import { ProductService } from "../../infrastructure/service/product"
-import { PostgresProductRepository } from "../../infrastructure/repository/product"
+import {IProductService} from "../../domain/service/product";
+import Router from "koa-router";
+import {ProductDto} from "../../application/usecase/getProductByIdUseCase";
 
-export default async function routes(fastify: FastifyInstance<Server, IncomingMessage, ServerResponse>, options: any) {
-    fastify.get('/', async (request, reply) => {
-        const service: IProductService = new ProductService(new PostgresProductRepository())
-        return service.getAll()
-      })
+
+export function getProductById(getProductById: (id: string) => Promise<ProductDto> ) {
+    return (router: Router<any, {}>) => {
+        return router.get("/products", async (context, next) => {
+            const result = await getProductById("")
+        })
+    }
 }
-
-module.exports = routes

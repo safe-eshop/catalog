@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/koa": "^2.0.52",
+    "@types/koa": "^2.11.0",
     "@types/koa-json": "^2.0.18",
     "@types/koa-logger": "^3.1.1",
     "@types/koa-router": "^7.0.42",
@@ -27,20 +27,20 @@
     "koa-json": "^2.0.2",
     "koa-logger": "^3.2.1",
     "koa-router": "^7.4.0",
-    "mongoose": "^5.7.11",
+    "mongoose": "^5.7.12",
     "ramda": "^0.26.1",
     "sequelize": "^5.21.2",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
-    "@types/node": "^12.12.9",
-    "@types/ramda": "^0.26.35",
+    "@types/node": "^12.12.14",
+    "@types/ramda": "^0.26.36",
     "@types/uuid": "^3.4.6",
-    "nodemon": "^1.19.4",
+    "nodemon": "^2.0.1",
     "jest": "^24.9.0",
-    "ts-jest": "^24.1.0",
-    "ts-node": "^8.5.2",
+    "ts-jest": "^24.2.0",
+    "ts-node": "^8.5.4",
     "typescript": "^3.7.2"
   }
 }
