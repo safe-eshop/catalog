@@ -5,7 +5,7 @@ FROM node:latest AS build
 WORKDIR /app
 COPY . .
 RUN npm set progress=false && npm config set depth 0
-RUN npm install --only=production 
+RUN npm install
 RUN npm run build
 
 FROM base AS final
