@@ -3,17 +3,26 @@ import Router from "koa-router"
 import json from "koa-json"
 import logger from "koa-logger"
 import {getProductById} from "./api/endpoints/product";
+import {MongoProductRepository} from "./infrastructure/repository/product";
+import {productModel} from "./infrastructure/model/product";
+import {seedDatabaseUseCase} from "./application/usecase/seed";
+import getProductByIdUseCase from "./application/usecase/getProductByIdUseCase";
+import {ProductService} from "./domain/service/product";
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://root:test@localhost:27017/catalog?authSource=admin', {useNewUrlParser: true}).then((_: any) => {
+    return seedDatabaseUseCase(new MongoProductRepository(productModel))
+});
 
 const app = new Koa();
-const router = new Router();
+const router = new Router({ prefix: process.env.PATH_BASE ?? "/" });
 
 router.get("/", async (ctx, next) => {
     ctx.body = { message: "Test"};
     await next();
 });
 
-const rout = getProductById(id => Promise.resolve({ id: id }));
-
+getProductById(getProductByIdUseCase(new ProductService(new MongoProductRepository(productModel))))(router);
+//app.use(rout);
 app.use(json());
 app.use(logger());
 app.use(router.routes()).use(router.allowedMethods());
