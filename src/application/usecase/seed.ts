@@ -11,6 +11,7 @@ export async function seedDatabaseUseCase(repo: IProductRepository) {
             details: { color: "Red", manufacturer: "Super producent", weight: 1, weightUnits: "kg"},
             id: uuid()
         }];
+        console.log(`Search me: ${products[0].id}`)
         await repo.insertMany(products);   
     }
     console.log("Database seeded")

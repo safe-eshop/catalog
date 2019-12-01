@@ -8,13 +8,17 @@ import {productModel} from "./infrastructure/model/product";
 import {seedDatabaseUseCase} from "./application/usecase/seed";
 import getProductByIdUseCase from "./application/usecase/getProductByIdUseCase";
 import {ProductService} from "./domain/service/product";
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://root:test@localhost:27017/catalog?authSource=admin', {useNewUrlParser: true}).then((_: any) => {
+import mongoose from "mongoose";
+
+mongoose.connect('mongodb://mongo:27017/catalog?authSource=admin', {useNewUrlParser: true}).then((_: any) => {
     return seedDatabaseUseCase(new MongoProductRepository(productModel))
+}, rejected => {
+    console.error(rejected)
+    process.exit(-1);
 });
 
 const app = new Koa();
-const router = new Router({ prefix: process.env.PATH_BASE ?? "/" });
+const router = new Router({ prefix: process.env.PATH_BASE });
 
 router.get("/", async (ctx, next) => {
     ctx.body = { message: "Test"};

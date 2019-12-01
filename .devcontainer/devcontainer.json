@@ -1,6 +1,6 @@
 // If you want to run as a non-root user in the container, see .devcontainer/docker-compose.yml.
 {
-	"name": "Node.js & Postgres",
+	"name": "Node.js & Mongo DB",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "web",
 	"workspaceFolder": "/workspace",
@@ -18,7 +18,8 @@
 	// "shutdownAction": "none",
 
 	// Uncomment the next line to run commands after the container is created.
-	// "postCreateCommand": "npm install",
+	// "postCreateCommand": "yarn install",
+
 
 	// Add the IDs of extensions you want installed when the container is created in the array below.
 	"extensions": [

@@ -1,7 +1,7 @@
 version: '3.7'
 
 services: 
-  db:
+  mongo:
     image: mongo
     restart: always
     ports: 

@@ -17,22 +17,15 @@ services:
     
     volumes:
       - ..:/workspace
-      
+
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
-
+    
     links:
-      - catalog-db
+      - mongo
 
-  catalog-db:
-    image: postgres:alpine
+  mongo:
+    image: mongo
+    restart: unless-stopped
     ports: 
-      - 5433:5432
-    volumes:
-      - catalog-data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: pass
-      POSTGRES_USER: user
-      POSTGRES_DB: data
-volumes:
-  catalog-data:
+      - "27017:27017"
