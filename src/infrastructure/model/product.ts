@@ -1,13 +1,14 @@
-import {Document, Schema, model }  from "mongoose";
+import { Document, Schema, model } from "mongoose";
+import { Product } from "../../domain/model/product";
 
-export interface ProductDetails extends Document {
+export interface ProductDetails {
     readonly weight: number,
     readonly weightUnits: string,
     readonly manufacturer: string,
     readonly color: string
 }
 
-export interface MongoProduct extends Document{
+export interface MongoProduct extends Document {
     readonly _id: string,
     readonly name: string,
     readonly slug: string
@@ -37,4 +38,42 @@ export const ProductSchema = new Schema<MongoProduct>({
 });
 
 
-export const productModel =  model<MongoProduct>("Product", ProductSchema);
+export function toDomainProduct(mongoProduct: MongoProduct): Product {
+    return {
+        id: mongoProduct._id,
+        info: {
+            picture: mongoProduct.picture,
+            description: mongoProduct.description,
+            brand: mongoProduct.brand,
+            slug: mongoProduct.slug,
+            name: mongoProduct.name
+        },
+        price: mongoProduct.price,
+        details: {
+            color: mongoProduct.details.color,
+            manufacturer: mongoProduct.details.manufacturer,
+            weightUnits: mongoProduct.details.weightUnits,
+            weight: mongoProduct.details.weight
+        }
+    }
+}
+
+export function toMongoProduct(p: Product): MongoProduct {
+    return {
+        _id: p.id,
+        name: p.info.name,
+        slug: p.info.slug,
+        brand: p.info.brand,
+        description: p.info.description, 
+        details: {
+            weight: p.details.weight,
+            weightUnits: p.details.weightUnits,
+            manufacturer: p.details.manufacturer,
+            color: p.details.color
+        },
+        price: p.price,
+        picture: p.info.picture,
+    } as MongoProduct;
+}
+
+export const productModel = model<MongoProduct & Document>("Product", ProductSchema);
