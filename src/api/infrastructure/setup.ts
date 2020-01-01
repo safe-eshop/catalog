@@ -8,7 +8,7 @@ import Router from "koa-router";
 import { getProductById } from "../endpoints/product";
 
 function getMongoConnectionString() {
-    return process.env.MONGO_URL ?? 'mongodb://mongo:27017/catalog?authSource=admin';
+    return process.env.MONGOsURL ?? 'mongodb://root:test@localhost:27017/catalog?authSource=admin';
 }
 
 export function setupMongo() {

@@ -1,6 +1,6 @@
 import Router from "koa-router";
-import {ProductDto} from "../../application/usecase/getProductByIdUseCase";
 import {isSome, Option, toNullable} from "fp-ts/lib/Option";
+import {ProductDto} from "../../application/dto/product";
 
 
 export function getProductById(getById: (id: string) => Promise<Option<ProductDto>> ) {
