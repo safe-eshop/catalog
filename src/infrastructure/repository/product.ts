@@ -25,5 +25,27 @@ export class MongoProductRepository implements IProductRepository {
     count(): Promise<number> {
         return this.model.count({}).exec();
     }
+}
 
+export type ProductsFilter = {}
+
+export interface IProductFilter {
+    filter(f: ProductsFilter) : Promise<Option<Product[]>>
+}
+
+export class MongoProductFilter implements IProductFilter {
+
+    constructor(private model: Model<MongoProduct>) {
+    }
+    
+    async filter(f: ProductsFilter): Promise<Option<Product[]>> {
+        const mongoProducts = await this.model.find().exec();
+        
+        if (mongoProducts?.length > 0) {
+            return some(mongoProducts.map(toDomainProduct))
+        }
+        
+        return none;
+    }
+    
 }

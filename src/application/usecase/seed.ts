@@ -10,6 +10,11 @@ export async function seedDatabaseUseCase(repo: IProductRepository) {
             info: {brand: "test", description: "super product", name: "Shampoo", slug: "1", picture: "adsdas" },
             details: { color: "Red", manufacturer: "Super producent", weight: 1, weightUnits: "kg"},
             id: uuid()
+        },{
+            price: 2.0,
+            info: {brand: "test2", description: "super product2", name: "Shampoo", slug: "1", picture: "adsdas2" },
+            details: { color: "Blue", manufacturer: "Super producent", weight: 1, weightUnits: "kg"},
+            id: uuid()
         }];
         console.log(`Search me: ${products[0].id}`)
         await repo.insertMany(products);   
