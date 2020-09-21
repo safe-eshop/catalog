@@ -1,4 +1,5 @@
 ﻿using Catalog.Application.Services.Catalog;
+using Catalog.Application.UseCases.Catalog;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Catalog.Api.Framework.Application
@@ -20,7 +21,7 @@ namespace Catalog.Api.Framework.Application
 
         private static IServiceCollection AddAppicationUseCases(this IServiceCollection services)
         {
-            services.AddScoped<ICatalogService, CatalogService>();
+            services.AddScoped<GetCatalogByIdUseCase>();
             return services;
         }
     }
