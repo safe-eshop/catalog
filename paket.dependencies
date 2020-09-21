@@ -28,3 +28,7 @@ nuget Carter
 nuget App.Metrics.Reporting.Console
 nuget App.Metrics.Reporting.HTTP
 nuget App.Metrics.AspNetCore.All
+nuget System.Linq.Async
+nuget System.Threading.Channels
+nuget Open.ChannelExtensions
+nuget Cocona

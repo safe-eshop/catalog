@@ -1,2 +1,5 @@
 ﻿LanguageExt.FSharp
 FSharpx.Extras
+System.Linq.Async
+System.Threading.Channels
+Open.ChannelExtensions
