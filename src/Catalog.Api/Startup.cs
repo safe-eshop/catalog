@@ -50,7 +50,7 @@ namespace Catalog.Api
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Notification.Center", Version = "v1"});
             });
             services.AddApplication();
-            services.AddInfrastructure();
+            services.AddInfrastructure(Configuration);
             services.AddHealthChecks().AddMongoDb(Configuration.GetConnectionString("Products"));
         }
 
