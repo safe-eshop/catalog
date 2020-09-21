@@ -32,3 +32,9 @@ nuget System.Linq.Async
 nuget System.Threading.Channels
 nuget Open.ChannelExtensions
 nuget Cocona
+
+nuget Microsoft.NET.Test.Sdk
+nuget xunit
+nuget xunit.runner.visualstudio
+nuget coverlet.collector
+nuget FluentAssertions
