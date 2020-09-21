@@ -9,5 +9,8 @@
     <ProjectReference Include="..\Catalog.Domain\Catalog.Domain.fsproj" />
     <ProjectReference Include="..\Catalog.Persistence\Catalog.Persistence.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model" />
+  </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
