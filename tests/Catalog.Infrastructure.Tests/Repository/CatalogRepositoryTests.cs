@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Catalog.Infrastructure.Repositories.Catalog;
+using Catalog.Persistence.Extensions;
 using Catalog.Persistence.Queries;
 using FluentAssertions;
 using MongoDB.Driver;
@@ -18,6 +19,7 @@ namespace Catalog.Infrastructure.Tests.Repository
         {
             Client = new MongoClient(Environment.GetEnvironmentVariable("TST_MONGO_BASKET") ?? "mongodb://root:rootpassword@127.0.0.1:27017");
             Database = Client.GetDatabase($"{nameof(Catalog)}{nameof(Infrastructure)}{nameof(Tests)}");
+            Database.AddCollections();
         }
 
 

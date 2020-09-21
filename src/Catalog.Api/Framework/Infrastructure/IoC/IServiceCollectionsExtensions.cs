@@ -1,5 +1,6 @@
 ﻿using Catalog.Domain.Repository;
 using Catalog.Infrastructure.Repositories.Catalog;
+using Catalog.Persistence.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -33,7 +34,9 @@ namespace Catalog.Api.Framework.Infrastructure.IoC
             services.AddSingleton<IMongoDatabase>(ctx =>
             {
                 var client = ctx.GetService<IMongoClient>();
-                return client.GetDatabase("Catalog");
+                var db = client.GetDatabase("Catalog");
+                db.AddCollections();
+                return db;
             });
             return services;
         }
