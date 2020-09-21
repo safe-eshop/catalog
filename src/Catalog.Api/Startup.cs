@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Catalog.Api.Framework.Application;
+using Catalog.Api.Framework.Infrastructure.IoC;
 using Catalog.Api.Framework.Infrastructure.Logging;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
@@ -49,6 +50,7 @@ namespace Catalog.Api
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Notification.Center", Version = "v1"});
             });
             services.AddApplication();
+            services.AddInfrastructure();
             services.AddHealthChecks().AddMongoDb(Configuration.GetConnectionString("Products"));
         }
 

@@ -1,5 +1,7 @@
 ﻿namespace Catalog.Domain.Model
 
+open System
+
 type ProductId = Guid
 
 type ShopId = int
