@@ -108,6 +108,7 @@ NUGET
     DnsClient (1.3.2)
       System.Buffers (>= 4.4) - restriction: || (&& (== netcoreapp3.1) (>= net471)) (&& (== netcoreapp3.1) (< netstandard2.0)) (&& (== netcoreapp3.1) (< netstandard2.1)) (== netstandard2.0) (&& (== netstandard2.1) (>= net471)) (&& (== netstandard2.1) (< netstandard2.0))
     FluentValidation (9.2.2) - restriction: || (== netcoreapp3.1) (&& (== netstandard2.0) (>= netcoreapp3.1)) (&& (== netstandard2.1) (>= netcoreapp3.1))
+    FSharp.Core (4.7.2)
     LanguageExt.Core (3.4.15)
       Microsoft.CSharp (>= 4.5)
       System.Diagnostics.Contracts (>= 4.3)
