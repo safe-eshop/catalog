@@ -12,7 +12,7 @@ namespace Catalog.Infrastructure.Repositories.Catalog
 {
     public class CatalogRepository : ICatalogRepository
     {
-        private IMongoDatabase _database;
+        private readonly IMongoDatabase _database;
 
         public CatalogRepository(IMongoDatabase database)
         {
