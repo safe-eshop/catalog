@@ -9,5 +9,7 @@ namespace Catalog.Persistence.Model
         [BsonId] 
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
+        
+        public int ShopId { get; set; }
     }
 }

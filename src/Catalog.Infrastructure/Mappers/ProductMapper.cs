@@ -7,7 +7,7 @@ namespace Catalog.Infrastructure.Mappers
     {
         public static Product ToProduct(this MongoProduct product)
         {
-            return new Product(product.Id);
+            return new Product(product.Id, product.ShopId);
         } 
     }
 }

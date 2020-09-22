@@ -17,7 +17,7 @@ namespace Catalog.Persistence.Queries
             int shopId)
         {
             var find = products
-                .Find(x => x.Id == id);
+                .Find(x => x.Id == id && x.ShopId == shopId);
 
             return await find.FirstOrDefaultAsync();
         }

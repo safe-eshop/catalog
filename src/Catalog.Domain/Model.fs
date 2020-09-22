@@ -6,4 +6,4 @@ type ProductId = Guid
 
 type ShopId = int
 
-type Product = { Id: ProductId }
+type Product = { Id: ProductId; ShopId: ShopId }
