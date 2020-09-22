@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Catalog.Domain.Model;
 using Catalog.Domain.Repository;
@@ -22,6 +23,11 @@ namespace Catalog.Infrastructure.Repositories.Catalog
         {
             var result = await _database.ProductsCollection().GetProductById(id, shopId);
             return result.Map(mongo => mongo.ToProduct()).ToFSharp();
+        }
+
+        public async Task<FSharpOption<Product>> GetById(IEnumerable<Guid> ids, int shopId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
