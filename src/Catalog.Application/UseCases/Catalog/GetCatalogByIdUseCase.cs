@@ -15,6 +15,6 @@ namespace Catalog.Application.UseCases.Catalog
             _catalogService = catalogService;
         }
 
-        public async Task<Option<ProductDto>> Execute(Guid id, int shopId) => await _catalogService.GetProductById(id, shopId);
+        public async Task<Option<ProductDto>> Execute(int id, int shopId) => await _catalogService.GetProductById(id, shopId);
     }
 }

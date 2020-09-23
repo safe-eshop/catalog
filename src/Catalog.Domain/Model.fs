@@ -2,7 +2,7 @@
 
 open System
 
-type ProductId = Guid
+type ProductId = { Value: int }
 
 type ShopId = int
 

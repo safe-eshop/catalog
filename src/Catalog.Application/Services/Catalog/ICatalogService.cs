@@ -7,6 +7,6 @@ namespace Catalog.Application.Services.Catalog
 {
     public interface ICatalogService
     {
-        Task<Option<ProductDto>> GetProductById(Guid id, int shopId = 1);
+        Task<Option<ProductDto>> GetProductById(int id, int shopId = 1);
     }
 }

@@ -19,7 +19,7 @@ namespace Catalog.Application.Services.Catalog
             _catalogRepository = catalogRepository;
         }
 
-        public async Task<Option<ProductDto>> GetProductById(Guid id, int shopId = 1)
+        public async Task<Option<ProductDto>> GetProductById(int id, int shopId = 1)
         {
             var result = await _catalogRepository.GetById(id, shopId).ConfigureAwait(false);
             return fs(result).Map(prod => prod.MapToDto());
