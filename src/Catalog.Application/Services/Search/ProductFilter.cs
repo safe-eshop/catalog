@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Catalog.Application.Dto.Common;
 using Catalog.Application.Dto.Filter;
 using Catalog.Application.Queries.Search;
 using Catalog.Domain.Model;
@@ -12,7 +10,7 @@ namespace Catalog.Application.Services.Search
 {
     public class ProductFilter : IProductFilter
     {
-        public async Task<Option<IList<ProductId>>> FilterProducts(FilterProductsQuery query)
+        public async Task<Option<FilteredProductList>> FilterProducts(FilterProductsQuery query)
         {
             return None;
         }

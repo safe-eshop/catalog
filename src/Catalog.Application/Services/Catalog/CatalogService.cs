@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Catalog.Application.Dto.Common;
 using Catalog.Application.Mappers.Common;
@@ -24,6 +25,11 @@ namespace Catalog.Application.Services.Catalog
         {
             var result = await _catalogRepository.GetById(id, shopId).ConfigureAwait(false);
             return fs(result).Map(prod => prod.MapToDto());
+        }
+
+        public async Task<Option<IList<ProductDto>>> GetProductByIds(IList<ProductId> id, ShopId shopId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

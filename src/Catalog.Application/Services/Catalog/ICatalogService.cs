@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Catalog.Application.Dto.Common;
 using Catalog.Domain.Model;
@@ -9,5 +11,6 @@ namespace Catalog.Application.Services.Catalog
     public interface ICatalogService
     {
         Task<Option<ProductDto>> GetProductById(ProductId id, ShopId shopId);
+        Task<Option<IList<ProductDto>>> GetProductByIds(IList<ProductId> id, ShopId shopId);
     }
 }
