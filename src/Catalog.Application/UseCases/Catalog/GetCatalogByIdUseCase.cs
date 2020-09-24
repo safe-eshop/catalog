@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Catalog.Application.Dto.Common;
 using Catalog.Application.Services.Catalog;
+using Catalog.Domain.Model;
 using LanguageExt;
 
 namespace Catalog.Application.UseCases.Catalog
@@ -15,6 +16,6 @@ namespace Catalog.Application.UseCases.Catalog
             _catalogService = catalogService;
         }
 
-        public async Task<Option<ProductDto>> Execute(int id, int shopId) => await _catalogService.GetProductById(id, shopId);
+        public async Task<Option<ProductDto>> Execute(ProductId id, ShopId shopId) => await _catalogService.GetProductById(id, shopId);
     }
 }

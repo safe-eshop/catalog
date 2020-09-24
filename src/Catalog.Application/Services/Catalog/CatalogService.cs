@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Catalog.Application.Dto.Common;
 using Catalog.Application.Mappers.Common;
+using Catalog.Domain.Model;
 using Catalog.Domain.Repository;
 using FSharpx;
 using LanguageExt;
@@ -19,7 +20,7 @@ namespace Catalog.Application.Services.Catalog
             _catalogRepository = catalogRepository;
         }
 
-        public async Task<Option<ProductDto>> GetProductById(int id, int shopId = 1)
+        public async Task<Option<ProductDto>> GetProductById(ProductId id, ShopId shopId)
         {
             var result = await _catalogRepository.GetById(id, shopId).ConfigureAwait(false);
             return fs(result).Map(prod => prod.MapToDto());

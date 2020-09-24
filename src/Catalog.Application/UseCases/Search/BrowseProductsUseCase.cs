@@ -13,7 +13,7 @@ namespace Catalog.Application.UseCases.Search
         private ICatalogService _catalogServicde;
         public Task<Option<PagedProductListDto>> Execute(FilterProductsQuery query)
         {
-            var productIdsOpt = 
+            return null;
         }
     }
 }
