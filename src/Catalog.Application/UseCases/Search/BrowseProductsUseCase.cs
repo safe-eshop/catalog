@@ -5,24 +5,33 @@ using Catalog.Application.Services.Catalog;
 using Catalog.Application.Services.Search;
 using Catalog.Domain.Model;
 using LanguageExt;
+using static LanguageExt.Prelude;
 
 namespace Catalog.Application.UseCases.Search
 {
     public class BrowseProductsUseCase
     {
-        private IProductFilter _filter;
-        private ICatalogService _catalogServicde;
+        private readonly IProductFilter _filter;
+        private readonly ICatalogService _catalogServicde;
+
+        public BrowseProductsUseCase(IProductFilter filter, ICatalogService catalogServicde)
+        {
+            _filter = filter;
+            _catalogServicde = catalogServicde;
+        }
+
         public async Task<Option<PagedProductListDto>> Execute(FilterProductsQuery query)
         {
-            var productIdsOpt = await _filter.FilterProducts(query); ;
-            
-            return productIdsOpt
-                .BindAsync(ids => _catalogServicde.GetProductByIds(ids, ShopId.Create(query.ShopNumber)).ToAsync())
-                .Map(products =>
+            var productIdsOpt = await _filter.FilterProducts(query);
+            ;
+
+            return await productIdsOpt
+                .BindAsync(async list =>
                 {
-                    returm 
-                })
-            
+                    var result =
+                        await _catalogServicde.GetProductByIds(list.ProductsIds, ShopId.Create(query.ShopNumber));
+                    return result.Map(ids => new PagedProductListDto(ids, list.TotalItems, list.TotalPages)).ToAsync();
+                }).ToOption();
         }
     }
 }

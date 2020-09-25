@@ -1,9 +1,15 @@
 ﻿using System;
+using Catalog.Domain.Model;
 
 namespace Catalog.Application.Dto.Common
 {
     public class ProductDto
     {
-        public Guid Id { get; set; }
+        public ProductDto(ProductId id)
+        {
+            Id = id;
+        }
+
+        public ProductId Id { get; }
     }
 }
