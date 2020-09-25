@@ -7,10 +7,7 @@ namespace Catalog.Application.Mappers.Common
     {
         public static ProductDto MapToDto(this Product product)
         {
-            return new ProductDto()
-            {
-                
-            };
+            return new ProductDto(product.Id);
         }
     }
 }

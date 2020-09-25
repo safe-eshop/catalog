@@ -7,7 +7,7 @@ namespace Catalog.Api.Framework.Infrastructure.Logging
 {
     public static class RequestLogging
     {
-        public static LogEventLevel CustomGetLevel(HttpContext ctx, double _, Exception ex) =>
+        public static LogEventLevel CustomGetLevel(HttpContext ctx, double _, Exception? ex) =>
             ex != null
                 ? LogEventLevel.Error
                 : ctx.Response.StatusCode > 499
@@ -29,7 +29,7 @@ namespace Catalog.Api.Framework.Infrastructure.Logging
             return false;
         }
 
-        public static LogEventLevel ExcludeHealthChecks(HttpContext ctx, double _, Exception ex) =>
+        public static LogEventLevel ExcludeHealthChecks(HttpContext ctx, double _, Exception? ex) =>
             ex != null
                 ? LogEventLevel.Error
                 : ctx.Response.StatusCode > 499
