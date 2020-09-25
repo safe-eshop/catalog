@@ -4,7 +4,6 @@ LanguageExt.Core
 MediatR.Extensions.Microsoft.DependencyInjection
 Swashbuckle.AspNetCore
 Serilog.AspNetCore
-Serilog.Enrichers.Demystify
 Serilog.Enrichers.Environment
 Serilog.Enrichers.Process
 Serilog.Enrichers.Thread

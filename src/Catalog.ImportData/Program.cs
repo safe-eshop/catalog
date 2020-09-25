@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Catalog.ImportData.Framework.Logging;
 using Cocona;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,22 +10,29 @@ namespace Catalog.ImportData
 {
     class Program
     {
-        public Program(ILogger<Program> logger)
+        private readonly IConfiguration _configuration;
+
+        public Program(ILogger<Program> logger, IConfiguration configuration)
         {
+            _configuration = configuration;
             logger.LogInformation("Create Instance");
         }
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            CoconaApp.Create()
-                .ConfigureServices(services => { services.AddTransient<MyService>(); })
+            await CoconaApp.Create()
+                .UseLogger("Catalog.ImportData")
+                .ConfigureServices((ctx, services) =>
+                {
+                    services.AddTransient<MyService>();
+                })
                 .ConfigureAppConfiguration(builder =>
                 {
                     builder
                         .AddJsonFile("appsettings.json", true, true)
                         .AddEnvironmentVariables();
                 })
-                .Run<Program>(args);
+                .RunAsync<Program>(args);
         }
 
         public void Hello([FromService] MyService myService, [FromService] IConfiguration configuration)

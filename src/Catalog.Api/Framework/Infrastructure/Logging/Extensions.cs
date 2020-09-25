@@ -27,7 +27,6 @@ namespace Catalog.Api.Framework.Infrastructure.Logging
                     .Enrich.FromLogContext()
                     .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
                     .Enrich.WithProperty("ApplicationName", applicationName)
-                    .Enrich.WithDemystifiedStackTraces()
                     .Enrich.WithEnvironmentUserName()
                     .Enrich.WithProcessId()
                     .Enrich.WithProcessName()

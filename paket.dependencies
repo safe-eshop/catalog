@@ -14,7 +14,6 @@ nuget FSharpx.Extras
 nuget MediatR.Extensions.Microsoft.DependencyInjection
 nuget Swashbuckle.AspNetCore
 nuget Serilog.AspNetCore
-nuget Serilog.Enrichers.Demystify
 nuget Serilog.Enrichers.Environment
 nuget Serilog.Enrichers.Process
 nuget Serilog.Enrichers.Thread
