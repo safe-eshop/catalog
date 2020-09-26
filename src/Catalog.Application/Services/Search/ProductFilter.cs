@@ -12,9 +12,8 @@ namespace Catalog.Application.Services.Search
 {
     public class ProductFilter : IProductFilter
     {
-        public async Task<Option<FilteredProductList>> FilterProducts(FilterProductsQuery query)
+        public async Task<Option<PagedProductListDto>> FilterProducts(FilterProductsQuery query)
         {
-            
             return None;
         }
     }

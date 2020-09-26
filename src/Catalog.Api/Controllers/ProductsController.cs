@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using Catalog.Api.Framework.Requests;
 using Catalog.Api.Framework.Responses;
+using Catalog.Application.Queries.Search;
 using Catalog.Application.UseCases.Catalog;
+using Catalog.Application.UseCases.Search;
 using Catalog.Domain.Model;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,9 +23,13 @@ namespace Catalog.Api.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<ProductListResponse>> SearchProducts([FromBody]FilterProductsRequest request)
+        public async Task<ActionResult<ProductListResponse>> SearchProducts([FromBody] FilterProductsRequest request,
+            [FromServices] BrowseProductsUseCase useCase)
         {
-            return NoContent();
+            var result = await useCase.Execute(new FilterProductsQuery(request.ShopNumber, request.PageSize,
+                request.Page,
+                request.CategoryId, request.MaxPrice, request.MinPrice, request.MinRating, request.SortOrder));
+            return result.Match<ActionResult<ProductListResponse>>(res => Ok(res), () => NoContent());
         }
     }
 }
