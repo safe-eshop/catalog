@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Catalog.Domain.Model;
 using Catalog.Infrastructure.Repositories.Catalog;
 using Catalog.Persistence.Extensions;
 using Catalog.Persistence.Queries;
@@ -41,8 +42,8 @@ namespace Catalog.Infrastructure.Tests.Repository
         [Fact]
         public async Task TestWhenProductNotExists()
         {
-            var id = Guid.NewGuid();
-            const int shopId = 1;
+            var id = new ProductId(1);
+            var shopId = new ShopId(1);
             var repository = new CatalogRepository(_mongoDbFixture.Database);
 
             var productOpt = await repository.GetById(id, shopId);
