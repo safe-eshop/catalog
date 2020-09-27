@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Catalog.Domain.Repository;
 using Catalog.ImportData.Framework.Logging;
+using Catalog.Infrastructure.Repositories.Import;
 using Cocona;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -24,7 +27,7 @@ namespace Catalog.ImportData
                 .UseLogger("Catalog.ImportData")
                 .ConfigureServices((ctx, services) =>
                 {
-                    services.AddTransient<MyService>();
+                    services.AddTransient<IProductsImportSource, FakeProductsImportSource>();
                 })
                 .ConfigureAppConfiguration(builder =>
                 {
@@ -35,24 +38,16 @@ namespace Catalog.ImportData
                 .RunAsync<Program>(args);
         }
 
-        public void Hello([FromService] MyService myService, [FromService] IConfiguration configuration)
+        public async Task<int> Import([FromService] IProductsImportSource source)
         {
-            myService.Hello($"Hello {configuration["Test"]}");
-        }
-    }
+            var res = source.GetProductsToImport();
 
-    class MyService
-    {
-        private readonly ILogger _logger;
+            await foreach (var p in res)
+            {
+                Console.WriteLine(p);
+            }
 
-        public MyService(ILogger<MyService> logger)
-        {
-            _logger = logger;
-        }
-
-        public void Hello(string message)
-        {
-            _logger.LogInformation(message);
+            return 0;
         }
     }
 }

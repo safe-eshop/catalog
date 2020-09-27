@@ -37,3 +37,4 @@ nuget xunit
 nuget xunit.runner.visualstudio
 nuget coverlet.collector
 nuget FluentAssertions
+nuget Bogus

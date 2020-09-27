@@ -11,4 +11,27 @@ type ShopId =
     static member Create(value: Nullable<int>) =
         if value.HasValue then { Value = value.Value } else { Value = 1 }
 
-type Product = { Id: ProductId; ShopId: ShopId }
+type ProductDescription =
+    { Name: string
+      Brand: string
+      Description: string }
+
+type ProductDetails =
+    { Weight: double
+      WeightUnits: string
+      Manufacturer: string
+      Picture: string
+      Color: string }
+
+type Price =
+    { Regular: decimal
+      Promotional: Nullable<decimal> }
+
+type Product =
+    { Id: ProductId
+      ShopId: ShopId
+      Slug: string
+      Description: ProductDescription
+      Price: Price
+      Details: ProductDetails
+      Tags: string seq }
