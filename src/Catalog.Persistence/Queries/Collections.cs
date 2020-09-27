@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Catalog.Domain.Model;
 using Catalog.Persistence.Model;
@@ -19,6 +20,15 @@ namespace Catalog.Persistence.Queries
         {
             var find = products
                 .Find(x => x.Id == id.Value && x.ShopId == shopId.Value);
+
+            return await find.FirstOrDefaultAsync();
+        }
+
+        public static async Task<Option<MongoProduct>> GetProductByIds(this IMongoCollection<MongoProduct> products, IList<ProductId> id,
+            ShopId shopId)
+        {
+            var find = products
+                .In(x => x.Id == id.Value && x.ShopId == shopId.Value);
 
             return await find.FirstOrDefaultAsync();
         }

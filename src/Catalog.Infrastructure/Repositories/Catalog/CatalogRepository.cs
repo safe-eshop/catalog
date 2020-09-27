@@ -22,13 +22,13 @@ namespace Catalog.Infrastructure.Repositories.Catalog
 
         public async Task<FSharpOption<Product>> GetById(ProductId id, ShopId shopId)
         {
-            var result = await _database.ProductsCollection().GetProductById(id, shopId);
+            var result = await _database.ProductsCollection().GetProductById(id, shopId).ConfigureAwait(false);
             return result.Map(mongo => mongo.ToProduct()).ToFSharp();
         }
 
-        public async Task<FSharpOption<Product>> GetByIds(IEnumerable<ProductId> ids, ShopId shopId)
+        public IAsyncEnumerable<Product> GetByIds(IEnumerable<ProductId> ids, ShopId shopId)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
