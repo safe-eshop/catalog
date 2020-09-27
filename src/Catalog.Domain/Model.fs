@@ -19,7 +19,6 @@ type ProductDescription =
 type ProductDetails =
     { Weight: double
       WeightUnits: string
-      Manufacturer: string
       Picture: string
       Color: string }
 
@@ -35,3 +34,7 @@ type Product =
       Price: Price
       Details: ProductDetails
       Tags: string seq }
+    
+module Product =
+    let generateSlug(pid: ProductId)(sid: ShopId) =
+        sprintf "%d_%d" pid.Value sid.Value

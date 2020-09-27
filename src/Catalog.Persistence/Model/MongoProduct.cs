@@ -10,6 +10,17 @@ namespace Catalog.Persistence.Model
         [BsonRepresentation(BsonType.String)]
         public int Id { get; set; }
         public int ShopId { get; set; }
+        
         public DateTime EffectiveDate { get; set; }
     }
+
+    public class ProductDetails
+    {
+        public double Weight { get; set; }
+        public string WeightUnits { get; set; }
+        public string Picture { get; set; }
+        public string Color { get; set; }
+    }
+    
+    public 
 }

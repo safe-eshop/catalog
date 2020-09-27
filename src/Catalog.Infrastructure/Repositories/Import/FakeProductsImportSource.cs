@@ -15,8 +15,25 @@ namespace Catalog.Infrastructure.Repositories.Import
                 .Select(x =>
                 {
                     var (id, shopNums) = x;
-                    return shopNums.Select(shopId => new Product(new ProductId(id), new ShopId(shopId)));
+                    return Generate(new ProductId(id), shopNums.Select(shopId => new ShopId(shopId)).ToList());
                 }).SelectMany(x => x).ToAsyncEnumerable();
+        }
+
+        private IEnumerable<Product> Generate(ProductId productId, IEnumerable<ShopId> shopIds)
+        {
+            var faker = new Faker("en");
+            var details = new ProductDetails(faker.Commerce.Random.Double(), "kg", faker.Image.PicsumUrl(),
+                faker.Commerce.Color());
+            var desc = new ProductDescription(faker.Commerce.ProductName(), faker.Company.CompanyName(),
+                faker.Commerce.ProductDescription());
+            var price = new Price(decimal.Parse(faker.Commerce.Price(100)),
+                faker.Random.Bool() ? (decimal?) null : decimal.Parse(faker.Commerce.Price(1, 99)));
+            var tags = faker.Commerce.Categories(5);
+            return shopIds.Select(shopId =>
+            {
+                var slug = ProductModule.generateSlug(productId, shopId);
+                return new Product(productId, shopId, slug, desc, price, details, tags);
+            });
         }
     }
 }
