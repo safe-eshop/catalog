@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Api.Framework.Requests;
 using Catalog.Api.Framework.Responses;
@@ -20,6 +22,20 @@ namespace Catalog.Api.Controllers
         {
             var result = await getCatalogById.Execute(new ProductId(id), ShopId.Create(shopId));
             return result.Match<ActionResult<ProductResponse>>(res => Ok(res), () => NotFound());
+        }
+        
+        [HttpGet]
+        public async Task<ActionResult<ProductResponse>> GetProductByIds([FromQuery]IEnumerable<int> ids, [FromQuery] int? shopId,
+            [FromServices] GetCatalogByIdUseCase getCatalogById)
+        {
+            var result = await getCatalogById.Execute(ids.Select(x => new ProductId(x)).ToList(), ShopId.Create(shopId)).ToListAsync();
+            
+            if (result.Any())
+            {
+                return Ok(result);
+            }
+
+            return NoContent();
         }
 
         [HttpGet("search")]

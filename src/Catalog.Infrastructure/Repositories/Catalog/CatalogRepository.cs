@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Domain.Model;
 using Catalog.Domain.Repository;
@@ -28,7 +29,7 @@ namespace Catalog.Infrastructure.Repositories.Catalog
 
         public IAsyncEnumerable<Product> GetByIds(IEnumerable<ProductId> ids, ShopId shopId)
         {
-            
+            return _database.ProductsCollection().GetProductByIds(ids, shopId).Select(x => x.ToProduct());
         }
     }
 }

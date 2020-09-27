@@ -11,6 +11,6 @@ namespace Catalog.Application.Services.Catalog
     public interface ICatalogService
     {
         Task<Option<ProductDto>> GetProductById(ProductId id, ShopId shopId);
-        Task<Option<IList<ProductDto>>> GetProductByIds(IList<ProductId> id, ShopId shopId);
+        IAsyncEnumerable<ProductDto> GetProductByIds(IEnumerable<ProductId> id, ShopId shopId);
     }
 }

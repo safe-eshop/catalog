@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Domain.Model;
 using Catalog.Persistence.Model;
@@ -15,7 +16,8 @@ namespace Catalog.Persistence.Queries
         public static IMongoCollection<MongoProduct> ProductsCollection(this IMongoDatabase db) =>
             db.GetCollection<MongoProduct>(ProductsCollectionName);
 
-        public static async Task<Option<MongoProduct>> GetProductById(this IMongoCollection<MongoProduct> products, ProductId id,
+        public static async Task<Option<MongoProduct>> GetProductById(this IMongoCollection<MongoProduct> products,
+            ProductId id,
             ShopId shopId)
         {
             var find = products
@@ -24,13 +26,19 @@ namespace Catalog.Persistence.Queries
             return await find.FirstOrDefaultAsync();
         }
 
-        public static async Task<Option<MongoProduct>> GetProductByIds(this IMongoCollection<MongoProduct> products, IList<ProductId> id,
+        public static async IAsyncEnumerable<MongoProduct> GetProductByIds(this IMongoCollection<MongoProduct> products,
+            IEnumerable<ProductId> ids,
             ShopId shopId)
         {
-            var find = products
-                .In(x => x.Id == id.Value && x.ShopId == shopId.Value);
+            var productsId = ids.Select(x => x.Value).ToList();
+            var result = await products
+                .FindSync(x => productsId.Contains(x.Id) && x.ShopId == shopId.Value)
+                .ToListAsync();
 
-            return await find.FirstOrDefaultAsync();
+            foreach (var product in result)
+            {
+                yield return product;
+            }
         }
     }
 }

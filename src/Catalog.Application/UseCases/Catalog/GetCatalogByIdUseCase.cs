@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Catalog.Application.Dto.Common;
 using Catalog.Application.Services.Catalog;
@@ -17,5 +18,8 @@ namespace Catalog.Application.UseCases.Catalog
         }
 
         public async Task<Option<ProductDto>> Execute(ProductId id, ShopId shopId) => await _catalogService.GetProductById(id, shopId);
+
+        public IAsyncEnumerable<ProductDto> Execute(IEnumerable<ProductId> ids, ShopId shopId) =>
+            _catalogService.GetProductByIds(ids, shopId);
     }
 }
