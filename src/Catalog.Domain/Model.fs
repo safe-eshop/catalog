@@ -25,6 +25,12 @@ type ProductDetails =
 type Price =
     { Regular: decimal
       Promotional: Nullable<decimal> }
+    static member Create (regular: decimal) (promotional: Nullable<decimal>) =
+        match (regular, promotional) with
+        | reg, prom when prom.HasValue && (prom.Value > reg) -> failwith "Regular price is grater than promotional"
+        | reg, prom ->
+            { Regular = reg
+              Promotional = prom }
 
 type Product =
     { Id: ProductId
@@ -34,7 +40,6 @@ type Product =
       Price: Price
       Details: ProductDetails
       Tags: string seq }
-    
+
 module Product =
-    let generateSlug(pid: ProductId)(sid: ShopId) =
-        sprintf "%d_%d" pid.Value sid.Value
+    let generateSlug (pid: ProductId) (sid: ShopId) = sprintf "%d_%d" pid.Value sid.Value
