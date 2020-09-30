@@ -26,13 +26,12 @@ namespace Catalog.Infrastructure.Repositories.Import
                 faker.Commerce.Color());
             var desc = new ProductDescription(faker.Commerce.ProductName(), faker.Company.CompanyName(),
                 faker.Commerce.ProductDescription());
-            var price = new Price(decimal.Parse(faker.Commerce.Price(100)),
-                faker.Random.Bool() ? (decimal?) null : decimal.Parse(faker.Commerce.Price(1, 99)));
             var tags = faker.Commerce.Categories(5);
             return shopIds.Select(shopId =>
             {
                 var slug = ProductModule.generateSlug(productId, shopId);
-                return new Product(productId, shopId, slug, desc, price, details, tags);
+                return new Product(productId, shopId, slug, desc, new Price(decimal.Parse(faker.Commerce.Price(100)),
+                    faker.Random.Bool() ? (decimal?) null : decimal.Parse(faker.Commerce.Price(1, 99))), details, tags);
             });
         }
     }

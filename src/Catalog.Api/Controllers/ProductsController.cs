@@ -24,16 +24,20 @@ namespace Catalog.Api.Controllers
             var result = await getCatalogById.Execute(new ProductId(id), ShopId.Create(shopId));
             return result.Match<ActionResult<ProductResponse>>(res => Ok(res.ToResponse()), () => NotFound());
         }
-        
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductResponse>>> GetProductByIds([FromQuery]IEnumerable<int> ids, [FromQuery] int? shopId,
+        public async Task<ActionResult<IEnumerable<ProductResponse>>> GetProductByIds([FromQuery] IEnumerable<int> ids,
+            [FromQuery] int? shopId,
             [FromServices] GetCatalogByIdUseCase getCatalogById)
         {
-            var result = await getCatalogById.Execute(ids.Select(x => new ProductId(x)).ToList(), ShopId.Create(shopId)).ToListAsync();
-            
+            var result = await getCatalogById
+                .Execute(ids.Select(x => new ProductId(x)).ToList(), ShopId.Create(shopId))
+                .Select(x => x.ToResponse())
+                .ToListAsync();
+
             if (result.Any())
             {
-                return Ok(result.Select(x => x.ToResponse()).ToList());
+                return Ok(result);
             }
 
             return NoContent();

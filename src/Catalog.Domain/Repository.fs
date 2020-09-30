@@ -17,4 +17,4 @@ type IProductsImportSource =
     abstract member GetProductsToImport: unit  -> IAsyncEnumerable<Product>
     
 type IProductsImportWriteRepository =
-    abstract member Store: IAsyncEnumerable<Product>  -> Task<Result<unit, Exception>>
+    abstract member Store: productsSource:IAsyncEnumerable<Product>  -> Task<Result<unit, Exception>>

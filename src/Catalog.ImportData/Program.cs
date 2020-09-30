@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Catalog.Application.UseCases.Import;
 using Catalog.Domain.Repository;
 using Catalog.ImportData.Framework.Logging;
 using Catalog.Infrastructure.Repositories.Import;
@@ -28,6 +29,8 @@ namespace Catalog.ImportData
                 .ConfigureServices((ctx, services) =>
                 {
                     services.AddTransient<IProductsImportSource, FakeProductsImportSource>();
+                    services.AddTransient<IProductsImportWriteRepository, MongoProductsImportWriteRepository>();
+                    services.AddScoped<FullImportProductsTomorrowUseCase>();
                 })
                 .ConfigureAppConfiguration(builder =>
                 {
@@ -38,15 +41,9 @@ namespace Catalog.ImportData
                 .RunAsync<Program>(args);
         }
 
-        public async Task<int> Import([FromService] IProductsImportSource source)
+        public async Task<int> Import([FromService] FullImportProductsTomorrowUseCase fullImportProductsTomorrowUse)
         {
-            var res = source.GetProductsToImport();
-
-            await foreach (var p in res)
-            {
-                Console.WriteLine(p);
-            }
-
+            await fullImportProductsTomorrowUse.Execute();
             return 0;
         }
     }
