@@ -27,5 +27,35 @@ namespace Catalog.Infrastructure.Mappers
                 ToProductDescription(product.Description), ToProductPrice(product.Price),
                 ToProductDetails(product.Details), product.Tags);
         }
+        
+        public static MongoProduct ToMongoProduct(this Product product, DateTime effectiveDate)
+        {
+            return new MongoProduct()
+            {
+                Id = product.Id.Value,
+                Slug = product.Slug,
+                Description = new MongoProductDescription()
+                {
+                    Brand = product.Description.Brand,
+                    Description = product.Description.Description,
+                    Name = product.Description.Name
+                },
+                Details = new MongoProductDetails()
+                {
+                    Color = product.Details.Color,
+                    Picture = product.Details.Picture,
+                    Weight = product.Details.Weight,
+                    WeightUnits = product.Details.WeightUnits
+                },
+                Price = new MongoPrice()
+                {
+                    Promotional = (double?) product.Price.Promotional,
+                    Regular = (double) product.Price.Regular
+                },
+                Tags = product.Tags,
+                EffectiveDate = effectiveDate,
+                ShopId = product.ShopId.Value
+            };
+        }
     }
 }

@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Catalog.Application\Catalog.Application.csproj" />
     <ProjectReference Include="..\Catalog.Domain\Catalog.Domain.fsproj" />
     <ProjectReference Include="..\Catalog.Persistence\Catalog.Persistence.csproj" />
   </ItemGroup>
