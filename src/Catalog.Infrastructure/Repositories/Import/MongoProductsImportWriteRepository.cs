@@ -7,6 +7,7 @@ using Catalog.Domain.Repository;
 using Catalog.Infrastructure.Mappers;
 using Catalog.Persistence.Model;
 using Catalog.Persistence.Queries;
+using Microsoft.Extensions.Logging;
 using Microsoft.FSharp.Core;
 using MongoDB.Driver;
 using Open.ChannelExtensions;
@@ -16,10 +17,12 @@ namespace Catalog.Infrastructure.Repositories.Import
     public class MongoProductsImportWriteRepository : IProductsImportWriteRepository
     {
         private IMongoDatabase _database;
+        private readonly ILogger<MongoProductsImportWriteRepository> _logger;
 
-        public MongoProductsImportWriteRepository(IMongoDatabase database)
+        public MongoProductsImportWriteRepository(IMongoDatabase database, ILogger<MongoProductsImportWriteRepository> logger)
         {
             _database = database;
+            _logger = logger;
         }
 
         public async Task<FSharpResult<Unit, Exception>> Store(IAsyncEnumerable<Product> productsSource)
@@ -34,8 +37,7 @@ namespace Catalog.Infrastructure.Repositories.Import
 
             await foreach (var res in result)
             {
-                Console.WriteLine("Inserted");
-                Console.WriteLine(res.InsertedCount);
+                _logger.LogDebug("Inserted {Count}", res.InsertedCount);
             }
 
             return Result.UnitOk<Exception>();
