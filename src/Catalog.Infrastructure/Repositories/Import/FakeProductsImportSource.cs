@@ -11,7 +11,8 @@ namespace Catalog.Infrastructure.Repositories.Import
     {
         public IAsyncEnumerable<Product> GetProductsToImport()
         {
-            return Enumerable.Range(0, 10).Select(id => (id, Enumerable.Range(0, 10)))
+            return Enumerable.Range(0, 100)
+                .Select(id => (id, Enumerable.Range(0, 200)))
                 .Select(x =>
                 {
                     var (id, shopNums) = x;

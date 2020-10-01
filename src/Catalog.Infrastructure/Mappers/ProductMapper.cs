@@ -23,7 +23,7 @@ namespace Catalog.Infrastructure.Mappers
 
         public static Product ToProduct(this MongoProduct product)
         {
-            return new Product(new ProductId(product.Id), new ShopId(product.ShopId), product.Slug,
+            return new Product(new ProductId(product.ProductId), new ShopId(product.ShopId), product.Id,
                 ToProductDescription(product.Description), ToProductPrice(product.Price),
                 ToProductDetails(product.Details), product.Tags);
         }
@@ -32,8 +32,8 @@ namespace Catalog.Infrastructure.Mappers
         {
             return new MongoProduct()
             {
-                Id = product.Id.Value,
-                Slug = product.Slug,
+                Id = product.Slug,
+                ProductId = product.Id.Value,
                 Description = new MongoProductDescription()
                 {
                     Brand = product.Description.Brand,

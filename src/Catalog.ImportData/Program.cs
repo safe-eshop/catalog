@@ -4,11 +4,13 @@ using Catalog.Application.UseCases.Import;
 using Catalog.Domain.Repository;
 using Catalog.ImportData.Framework.Logging;
 using Catalog.Infrastructure.Repositories.Import;
+using Catalog.Persistence.Extensions;
 using Cocona;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
 
 namespace Catalog.ImportData
 {
@@ -30,6 +32,19 @@ namespace Catalog.ImportData
                 {
                     services.AddTransient<IProductsImportSource, FakeProductsImportSource>();
                     services.AddTransient<IProductsImportWriteRepository, MongoProductsImportWriteRepository>();
+                    services.AddSingleton<IMongoClient>(sp =>
+                    {
+                        var connectionString = ctx.Configuration.GetConnectionString("Products");
+                        return new MongoClient(new MongoUrl(connectionString));
+                    });
+
+                    services.AddSingleton<IMongoDatabase>(sp =>
+                    {
+                        var client = sp.GetService<IMongoClient>();
+                        var db = client.GetDatabase("Catalog");
+                        db.AddCollections();
+                        return db;
+                    });
                     services.AddScoped<FullImportProductsTomorrowUseCase>();
                 })
                 .ConfigureAppConfiguration(builder =>

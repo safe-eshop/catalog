@@ -9,9 +9,10 @@ namespace Catalog.Persistence.Model
     {
         [BsonId] 
         [BsonRepresentation(BsonType.String)]
-        public int Id { get; set; }
+        public string Id { get; set; }
+        
+        public int ProductId { get; set; }
         public int ShopId { get; set; }
-        public string Slug { get; set; }
         public DateTime EffectiveDate { get; set; }
         public MongoProductDescription Description { get; set; }
         public MongoProductDetails Details { get; set; }

@@ -21,7 +21,7 @@ namespace Catalog.Persistence.Queries
             ShopId shopId)
         {
             var find = products
-                .Find(x => x.Id == id.Value && x.ShopId == shopId.Value);
+                .Find(x => x.ProductId == id.Value && x.ShopId == shopId.Value);
 
             return await find.FirstOrDefaultAsync();
         }
@@ -32,7 +32,7 @@ namespace Catalog.Persistence.Queries
         {
             var productsId = ids.Select(x => x.Value).ToList();
             var result = await products
-                .FindSync(x => productsId.Contains(x.Id) && x.ShopId == shopId.Value)
+                .FindSync(x => productsId.Contains(x.ProductId) && x.ShopId == shopId.Value)
                 .ToListAsync();
 
             foreach (var product in result)

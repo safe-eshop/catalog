@@ -24,13 +24,19 @@ namespace Catalog.Infrastructure.Repositories.Import
 
         public async Task<FSharpResult<Unit, Exception>> Store(IAsyncEnumerable<Product> productsSource)
         {
-
             var products = _database.ProductsCollection();
-            productsSource.ToChannel()
+            var result = productsSource.ToChannel()
                 .Pipe(x => x.ToMongoProduct(DateTime.UtcNow.AddDays(1)))
+                .Pipe(x => new InsertOneModel<MongoProduct>(x))
                 .Batch(1000)
-                .Pipe(x => Bu)
-                .PipeAsync(50, async p => await products.BulkWriteAsync());
+                .PipeAsync(Environment.ProcessorCount, async p => await products.BulkWriteAsync(p))
+                .AsAsyncEnumerable();
+
+            await foreach (var res in result)
+            {
+                Console.WriteLine("Inserted");
+                Console.WriteLine(res.InsertedCount);
+            }
 
             return Result.UnitOk<Exception>();
         }
