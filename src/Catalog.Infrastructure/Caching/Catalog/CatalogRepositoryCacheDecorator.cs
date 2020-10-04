@@ -43,12 +43,12 @@ namespace Catalog.Infrastructure.Caching.Catalog
             }
 
             var obj = JsonSerializer.Deserialize<MongoProduct?>(result);
-            return Optional(obj).Map(x =>x.ToProduct());
+            return Optional(obj).Map(x => x.ToProduct());
         }
 
         public IAsyncEnumerable<Product> GetByIds(IEnumerable<ProductId> ids, ShopId shopId)
         {
-            throw new System.NotImplementedException();
+            return _catalogRepository.GetByIds(ids, shopId);
         }
     }
 }

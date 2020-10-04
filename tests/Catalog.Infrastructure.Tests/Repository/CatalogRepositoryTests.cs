@@ -48,7 +48,7 @@ namespace Catalog.Infrastructure.Tests.Repository
 
             var productOpt = await repository.GetById(id, shopId);
 
-            fs(productOpt).IsNone.Should().BeTrue();
+            productOpt.IsNone.Should().BeTrue();
         } 
     }
 }
