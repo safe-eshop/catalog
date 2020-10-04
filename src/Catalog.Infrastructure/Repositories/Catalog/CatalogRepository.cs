@@ -21,10 +21,10 @@ namespace Catalog.Infrastructure.Repositories.Catalog
             _database = database;
         }
 
-        public async Task<FSharpOption<Product>> GetById(ProductId id, ShopId shopId)
+        public async Task<Option<Product>> GetById(ProductId id, ShopId shopId)
         {
             var result = await _database.ProductsCollection().GetProductById(id, shopId).ConfigureAwait(false);
-            return result.Map(mongo => mongo.ToProduct()).ToFSharp();
+            return result.Map(mongo => mongo.ToProduct());
         }
 
         public IAsyncEnumerable<Product> GetByIds(IEnumerable<ProductId> ids, ShopId shopId)

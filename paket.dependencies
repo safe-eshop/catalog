@@ -34,6 +34,7 @@ nuget Cocona
 nuget System.Text.Json
 nuget Microsoft.Extensions.Logging.Abstractions 
 nuget Microsoft.Extensions.Caching.StackExchangeRedis
+nuget Microsoft.Extensions.Caching.Abstractions
 
 nuget Microsoft.NET.Test.Sdk
 nuget xunit
