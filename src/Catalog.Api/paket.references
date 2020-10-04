@@ -13,7 +13,7 @@ Serilog.Sinks.Trace
 Serilog.Sinks.Seq
 Serilog.Formatting.Elasticsearch
 Microsoft.AspNetCore.Authentication.JwtBearer
-Carter
+Scrutor
 App.Metrics.Reporting.Console
 App.Metrics.Reporting.HTTP
 App.Metrics.AspNetCore.All

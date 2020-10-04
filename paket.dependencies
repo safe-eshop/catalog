@@ -23,7 +23,7 @@ nuget Serilog.Sinks.Trace
 nuget Serilog.Sinks.Seq
 nuget Serilog.Formatting.Elasticsearch
 nuget Microsoft.AspNetCore.Authentication.JwtBearer
-nuget Carter
+nuget Scrutor
 nuget App.Metrics.Reporting.Console
 nuget App.Metrics.Reporting.HTTP
 nuget App.Metrics.AspNetCore.All
@@ -31,7 +31,9 @@ nuget System.Linq.Async
 nuget System.Threading.Channels
 nuget Open.ChannelExtensions
 nuget Cocona
+nuget System.Text.Json
 nuget Microsoft.Extensions.Logging.Abstractions 
+nuget Microsoft.Extensions.Caching.StackExchangeRedis
 
 nuget Microsoft.NET.Test.Sdk
 nuget xunit
