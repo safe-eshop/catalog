@@ -25,7 +25,7 @@ namespace Catalog.Application.Services.Catalog
         public async Task<Option<ProductDto>> GetProductById(ProductId id, ShopId shopId)
         {
             var result = await _catalogRepository.GetById(id, shopId).ConfigureAwait(false);
-            return fs(result).Map(prod => prod.MapToDto());
+            return result.Map(prod => prod.MapToDto());
         }
 
         public IAsyncEnumerable<ProductDto> GetProductByIds(IEnumerable<ProductId> ids, ShopId shopId)

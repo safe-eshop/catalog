@@ -1,28 +1,34 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Catalog.Domain.Repository;
+using Microsoft.Extensions.Logging;
 using Open.ChannelExtensions;
 
 namespace Catalog.Application.UseCases.Import
 {
-    public class FullImportProductsTomorrowUseCase
+    public class FullImportProductsTodayUseCase
     {
         private IProductsImportSource _source;
         private IProductsImportWriteRepository _importWriteRepository;
+        private ILogger<FullImportProductsTodayUseCase> _logger;
 
-        public FullImportProductsTomorrowUseCase(IProductsImportSource source,
-            IProductsImportWriteRepository importWriteRepository)
+        public FullImportProductsTodayUseCase(IProductsImportSource source,
+            IProductsImportWriteRepository importWriteRepository, ILogger<FullImportProductsTodayUseCase> logger)
         {
             _source = source;
             _importWriteRepository = importWriteRepository;
+            _logger = logger;
         }
 
         public async Task Execute()
         {
+            _logger.LogInformation("Start Import Today");
             var res = _source
                 .GetProductsToImport();
 
             await _importWriteRepository.Store(res);
+            
+            _logger.LogInformation("Finish Import Today");
         }
     }
 }

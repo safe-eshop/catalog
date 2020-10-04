@@ -28,7 +28,7 @@ namespace Catalog.Infrastructure.Caching.Catalog
 
         public async Task<Option<Product>> GetById(ProductId id, ShopId shopId)
         {
-            var key = $"{nameof(ICatalogRepository)}:{nameof(GetById)}:{id}:{shopId}";
+            var key = $"{nameof(ICatalogRepository)}:{nameof(GetById)}:{id.Value}:{shopId.Value}";
             var result = await _distributedCache.GetStringAsync(key);
             if (string.IsNullOrEmpty(result))
             {

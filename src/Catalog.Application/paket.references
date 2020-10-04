@@ -3,3 +3,4 @@ FSharpx.Extras
 System.Linq.Async
 System.Threading.Channels
 Open.ChannelExtensions
+Microsoft.Extensions.Logging.Abstractions

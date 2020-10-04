@@ -7,10 +7,11 @@ using Catalog.Domain.Repository;
 using Catalog.Infrastructure.Mappers;
 using Catalog.Persistence.Model;
 using Catalog.Persistence.Queries;
+using LanguageExt;
 using Microsoft.Extensions.Logging;
-using Microsoft.FSharp.Core;
 using MongoDB.Driver;
 using Open.ChannelExtensions;
+using static LanguageExt.Prelude;
 
 namespace Catalog.Infrastructure.Repositories.Import
 {
@@ -19,28 +20,29 @@ namespace Catalog.Infrastructure.Repositories.Import
         private IMongoDatabase _database;
         private readonly ILogger<MongoProductsImportWriteRepository> _logger;
 
-        public MongoProductsImportWriteRepository(IMongoDatabase database, ILogger<MongoProductsImportWriteRepository> logger)
+        public MongoProductsImportWriteRepository(IMongoDatabase database,
+            ILogger<MongoProductsImportWriteRepository> logger)
         {
             _database = database;
             _logger = logger;
         }
 
-        public async Task<FSharpResult<Unit, Exception>> Store(IAsyncEnumerable<Product> productsSource)
+        public async Task<Either<Exception, Unit>> Store(IAsyncEnumerable<Product> productsSource)
         {
             var products = _database.ProductsCollection();
             var result = productsSource.ToChannel()
                 .Pipe(x => x.ToMongoProduct(DateTime.UtcNow.AddDays(1)))
-                .Pipe(x => new InsertOneModel<MongoProduct>(x))
-                .Batch(1000)
-                .PipeAsync(Environment.ProcessorCount, async p => await products.BulkWriteAsync(p))
+                .PipeAsync(Environment.ProcessorCount,
+                    async p => await products.ReplaceOneAsync(x => x.ProductId == p.ProductId && x.ShopId == p.ShopId,
+                        p, new ReplaceOptions() { IsUpsert = true }))
                 .AsAsyncEnumerable();
 
             await foreach (var res in result)
             {
-                _logger.LogDebug("Inserted {Count}", res.InsertedCount);
+                _logger.LogInformation("Inserted {Result}", res);
             }
 
-            return Result.UnitOk<Exception>();
+            return Right<Exception, Unit>(Unit.Default);
         }
     }
 }

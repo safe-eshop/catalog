@@ -24,7 +24,7 @@ namespace Catalog.ImportData
             logger.LogInformation("Create Instance");
         }
 
-        static async Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
             await CoconaApp.Create()
                 .UseLogger("Catalog.ImportData")
@@ -45,7 +45,7 @@ namespace Catalog.ImportData
                         db.AddCollections();
                         return db;
                     });
-                    services.AddScoped<FullImportProductsTomorrowUseCase>();
+                    services.AddScoped<FullImportProductsTodayUseCase>();
                 })
                 .ConfigureAppConfiguration(builder =>
                 {
@@ -56,9 +56,9 @@ namespace Catalog.ImportData
                 .RunAsync<Program>(args);
         }
 
-        public async Task<int> Import([FromService] FullImportProductsTomorrowUseCase fullImportProductsTomorrowUse)
+        public async Task<int> Import([FromService] FullImportProductsTodayUseCase fullImportProductsTodayUse)
         {
-            await fullImportProductsTomorrowUse.Execute();
+            await fullImportProductsTodayUse.Execute();
             return 0;
         }
     }
