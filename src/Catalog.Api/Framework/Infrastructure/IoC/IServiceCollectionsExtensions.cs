@@ -46,7 +46,11 @@ namespace Catalog.Api.Framework.Infrastructure.IoC
         
         private static IServiceCollection AddCache(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDistributedMemoryCache();
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = configuration.GetConnectionString("ProductsCache");
+                options.InstanceName = nameof(Catalog);
+            });
             return services;
         }
     }
