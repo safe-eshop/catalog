@@ -13,5 +13,12 @@ services:
     image: redis:alpine
     ports:
       - "6379:6379"
+  solr:
+    image: solr
+    ports:
+      - "8983:8983"
+    volumes:
+      - products:/opt/solr/server/solr/products:
 volumes:
   catalogdb_container:
+  products:
