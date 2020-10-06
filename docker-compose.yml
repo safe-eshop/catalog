@@ -15,10 +15,11 @@ services:
       - "6379:6379"
   solr:
     image: solr
-    command: solr-create -c products -d /conf
+    entrypoint: solr-create -c products -d /conf
     ports:
       - "8983:8983"
     volumes:
-      - ./products:/opt/solr/server/solr/products
+      - ./products:/var/solr/data/products
 volumes:
   catalogdb_container:
+  products_data:

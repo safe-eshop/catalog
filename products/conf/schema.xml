@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 
-<schema name="inpost" version="1.5">
+<schema name="products" version="1.5">
     <types>
         <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
         <fieldType name="int" class="solr.IntPointField" />
