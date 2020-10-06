@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Catalog.Domain.Helpers;
 using Catalog.Domain.Model;
 using Catalog.Domain.Repository;
-using Catalog.Infrastructure.Mappers;
-using Catalog.Persistence.Model;
 using Catalog.Persistence.Queries;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
-using Open.ChannelExtensions;
 using static LanguageExt.Prelude;
 
-namespace Catalog.Infrastructure.Repositories.Import
+namespace Catalog.Persistence.Repositories.Import
 {
     public class MongoProductsImportWriteRepository : IProductsImportWriteRepository
     {

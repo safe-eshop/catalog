@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Catalog.Domain.Model;
-using Catalog.Infrastructure.Repositories.Catalog;
 using Catalog.Persistence.Extensions;
 using Catalog.Persistence.Queries;
+using Catalog.Persistence.Repositories.Catalog;
 using FluentAssertions;
 using MongoDB.Driver;
 using Xunit;

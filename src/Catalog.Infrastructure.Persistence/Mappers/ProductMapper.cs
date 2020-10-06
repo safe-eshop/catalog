@@ -2,7 +2,7 @@
 using Catalog.Domain.Model;
 using Catalog.Persistence.Model;
 
-namespace Catalog.Infrastructure.Mappers
+namespace Catalog.Persistence.Mappers
 {
     public static class ProductMapperExtensions
     {

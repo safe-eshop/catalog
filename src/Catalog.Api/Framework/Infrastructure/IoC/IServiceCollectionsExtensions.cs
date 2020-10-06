@@ -1,7 +1,7 @@
 ﻿using Catalog.Domain.Repository;
-using Catalog.Infrastructure.Caching.Catalog;
-using Catalog.Infrastructure.Repositories.Catalog;
+using Catalog.Persistence.Caching.Catalog;
 using Catalog.Persistence.Extensions;
+using Catalog.Persistence.Repositories.Catalog;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

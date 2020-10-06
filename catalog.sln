@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.ImportData", "src\C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Infrastructure", "src\Catalog.Infrastructure\Catalog.Infrastructure.csproj", "{F5869DE9-A61C-432C-BED3-11492274736C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Persistence", "src\Catalog.Persistence\Catalog.Persistence.csproj", "{6D160DD0-6DFD-4B08-B976-FDFF930B56D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Infrastructure.Persistence", "src\Catalog.Infrastructure.Persistence\Catalog.Infrastructure.Persistence.csproj", "{6D160DD0-6DFD-4B08-B976-FDFF930B56D9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D2C64452-CDFE-4D00-A106-53D2C9FC47BD}"
 EndProject

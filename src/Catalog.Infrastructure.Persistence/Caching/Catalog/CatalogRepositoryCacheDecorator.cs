@@ -5,15 +5,13 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Catalog.Domain.Model;
 using Catalog.Domain.Repository;
-using Catalog.Infrastructure.Mappers;
+using Catalog.Persistence.Mappers;
 using Catalog.Persistence.Model;
-using FSharpx.Collections;
 using LanguageExt;
 using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.FSharp.Core;
 using static LanguageExt.Prelude;
 
-namespace Catalog.Infrastructure.Caching.Catalog
+namespace Catalog.Persistence.Caching.Catalog
 {
     public class CatalogRepositoryCacheDecorator : ICatalogRepository
     {

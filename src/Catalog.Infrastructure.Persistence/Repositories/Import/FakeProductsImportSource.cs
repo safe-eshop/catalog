@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Bogus;
 using Catalog.Domain.Model;
 using Catalog.Domain.Repository;
 
-namespace Catalog.Infrastructure.Repositories.Import
+namespace Catalog.Persistence.Repositories.Import
 {
     public class FakeProductsImportSource : IProductsImportSource
     {

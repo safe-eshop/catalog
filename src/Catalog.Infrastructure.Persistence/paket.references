@@ -1,0 +1,8 @@
+﻿LanguageExt.FSharp
+MongoDB.Driver
+MongoDB.Bson
+System.Linq.Async
+Bogus
+Microsoft.Extensions.Logging.Abstractions
+Microsoft.Extensions.Caching.Abstractions
+System.Text.Json

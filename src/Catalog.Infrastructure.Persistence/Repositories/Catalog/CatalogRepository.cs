@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Domain.Model;
 using Catalog.Domain.Repository;
-using Catalog.Infrastructure.Mappers;
+using Catalog.Persistence.Mappers;
 using Catalog.Persistence.Queries;
 using LanguageExt;
-using Microsoft.FSharp.Core;
 using MongoDB.Driver;
 
-namespace Catalog.Infrastructure.Repositories.Catalog
+namespace Catalog.Persistence.Repositories.Catalog
 {
     public class CatalogRepository : ICatalogRepository
     {
