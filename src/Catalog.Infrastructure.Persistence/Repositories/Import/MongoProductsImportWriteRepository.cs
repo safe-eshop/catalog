@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Catalog.Domain.Model;
 using Catalog.Domain.Repository;
+using Catalog.Persistence.Mappers;
 using Catalog.Persistence.Queries;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using Open.ChannelExtensions;
 using static LanguageExt.Prelude;
 
 namespace Catalog.Persistence.Repositories.Import
