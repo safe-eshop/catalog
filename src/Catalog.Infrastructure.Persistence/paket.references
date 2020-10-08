@@ -5,4 +5,5 @@ System.Linq.Async
 Bogus
 Microsoft.Extensions.Logging.Abstractions
 Microsoft.Extensions.Caching.Abstractions
+SolrNet.Microsoft.DependencyInjection
 System.Text.Json

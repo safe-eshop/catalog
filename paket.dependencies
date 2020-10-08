@@ -36,6 +36,7 @@ nuget Microsoft.Extensions.Logging.Abstractions
 nuget Microsoft.Extensions.Caching.StackExchangeRedis
 nuget Microsoft.Extensions.Caching.Memory
 nuget Microsoft.Extensions.Caching.Abstractions
+nuget SolrNet.Microsoft.DependencyInjection
 
 nuget Microsoft.NET.Test.Sdk
 nuget xunit
