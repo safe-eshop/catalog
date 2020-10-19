@@ -31,9 +31,9 @@ namespace Catalog.Persistence.Queries
             IEnumerable<ProductId> ids,
             ShopId shopId)
         {
-            var productsId = ids.Select(x => x.Value).ToList();
+            var productsId = ids.Select(x => MongoProduct.GenerateMongoId(x, shopId, DateTime.UtcNow.Date)).ToList();
             var result = await products
-                .FindSync(x => productsId.Contains(x.Id) && x.ShopId == shopId.Value)
+                .FindSync(x => productsId.Contains(x.MongoId))
                 .ToListAsync();
 
             foreach (var product in result)
