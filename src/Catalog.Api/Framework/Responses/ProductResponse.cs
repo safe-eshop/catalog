@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Catalog.Application.Dto.Common;
 
 namespace Catalog.Api.Framework.Responses

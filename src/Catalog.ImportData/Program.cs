@@ -1,12 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Catalog.Application.UseCases.Import;
 using Catalog.Domain.Repository;
 using Catalog.ImportData.Framework.Logging;
 using Catalog.Persistence.Extensions;
 using Catalog.Persistence.Repositories.Import;
 using Cocona;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

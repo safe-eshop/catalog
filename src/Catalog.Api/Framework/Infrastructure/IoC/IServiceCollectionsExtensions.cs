@@ -4,7 +4,6 @@ using Catalog.Persistence.Extensions;
 using Catalog.Persistence.Repositories.Catalog;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace Catalog.Api.Framework.Infrastructure.IoC
@@ -12,21 +11,19 @@ namespace Catalog.Api.Framework.Infrastructure.IoC
     public static class IServiceCollectionsExtensions
     {
         
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddRepositories();
             services.AddDatabase(configuration);
             services.AddCache(configuration);
-            return services;
         }
-        private static IServiceCollection AddRepositories(this IServiceCollection services)
+        private static void AddRepositories(this IServiceCollection services)
         {
             services.AddTransient<ICatalogRepository, CatalogRepository>();
             services.Decorate<ICatalogRepository, CatalogRepositoryCacheDecorator>();
-            return services;
         }
         
-        private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
+        private static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IMongoClient>(ctx =>
             {
@@ -41,17 +38,15 @@ namespace Catalog.Api.Framework.Infrastructure.IoC
                 db.AddCollections();
                 return db;
             });
-            return services;
         }
         
-        private static IServiceCollection AddCache(this IServiceCollection services, IConfiguration configuration)
+        private static void AddCache(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddStackExchangeRedisCache(options =>
             {
                 options.Configuration = configuration.GetConnectionString("ProductsCache");
                 options.InstanceName = nameof(Catalog);
             });
-            return services;
         }
     }
 }

@@ -8,25 +8,22 @@ namespace Catalog.Api.Framework.Application
 {
     public static class IoC
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services)
+        public static void AddApplication(this IServiceCollection services)
         {
             services.AddApplicationServices();
             services.AddApplicationUseCases();
-            return services;
         }
 
-        private static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        private static void AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<ICatalogService, CatalogService>();
             services.AddScoped<IProductFilter, ProductFilter>();
-            return services;
         }
 
-        private static IServiceCollection AddApplicationUseCases(this IServiceCollection services)
+        private static void AddApplicationUseCases(this IServiceCollection services)
         {
             services.AddScoped<GetCatalogByIdUseCase>();
             services.AddScoped<BrowseProductsUseCase>();
-            return services;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Catalog.Api.Framework.Infrastructure.Logging
 {
     public static class Extensions
     {
-        public static IHostBuilder UseLogger(this IHostBuilder hostBuilder, string applicationName = null)
+        public static IHostBuilder UseLogger(this IHostBuilder hostBuilder, string? applicationName = null)
         {
             return hostBuilder.UseSerilog(((context, configuration) =>
             {

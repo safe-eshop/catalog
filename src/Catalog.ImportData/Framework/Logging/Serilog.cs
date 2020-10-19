@@ -1,14 +1,7 @@
-﻿using System;
-using System.Reflection;
-using Cocona.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
+﻿using Cocona.Hosting;
 using Serilog;
-using Serilog.Core;
 using Serilog.Events;
 using Serilog.Exceptions;
-using Serilog.Formatting.Compact;
-using Serilog.Formatting.Elasticsearch;
 using Serilog.Sinks.SystemConsole.Themes;
 
 namespace Catalog.ImportData.Framework.Logging

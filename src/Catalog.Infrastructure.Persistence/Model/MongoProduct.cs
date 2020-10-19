@@ -15,10 +15,10 @@ namespace Catalog.Persistence.Model
         public int ShopId { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc, DateOnly = true)]
         public DateTime EffectiveDate { get; set; }
-        public MongoProductDescription Description { get; set; }
-        public MongoProductDetails Details { get; set; }
-        public MongoPrice Price { get; set; }
-        public IEnumerable<string> Tags { get; set; }
+        public MongoProductDescription? Description { get; set; }
+        public MongoProductDetails? Details { get; set; }
+        public MongoPrice? Price { get; set; }
+        public IEnumerable<string>? Tags { get; set; }
 
         public string Slug => $"{Id}__{ShopId}";
 
@@ -46,16 +46,16 @@ namespace Catalog.Persistence.Model
     public class MongoProductDetails
     {
         public double Weight { get; set; }
-        public string WeightUnits { get; set; }
-        public string Picture { get; set; }
-        public string Color { get; set; }
+        public string? WeightUnits { get; set; }
+        public string? Picture { get; set; }
+        public string? Color { get; set; }
     }
 
     public class MongoProductDescription
     {
-        public string Name { get; set; }
-        public string Brand { get; set; }
-        public string Description { get; set; }
+        public string? Name { get; set; }
+        public string? Brand { get; set; }
+        public string? Description { get; set; }
     }
 
     public class MongoPrice

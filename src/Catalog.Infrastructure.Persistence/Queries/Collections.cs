@@ -6,7 +6,6 @@ using Catalog.Domain.Model;
 using Catalog.Persistence.Model;
 using LanguageExt;
 using MongoDB.Driver;
-using SolrNet.Utils;
 
 namespace Catalog.Persistence.Queries
 {
