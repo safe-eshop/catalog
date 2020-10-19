@@ -29,15 +29,15 @@ namespace Catalog.Persistence.Repositories.Import
         {
             var products = _database.ProductsCollection();
             var result = productsSource.ToChannel()
-                .Pipe(x => x.ToMongoProduct(DateTime.UtcNow.AddDays(1)))
+                .Pipe(x => x.ToMongoProduct(DateTime.UtcNow))
                 .PipeAsync(Environment.ProcessorCount,
-                    async p => await products.ReplaceOneAsync(x => x.ProductId == p.ProductId && x.ShopId == p.ShopId,
+                    async p => await products.ReplaceOneAsync(x => p.MongoId == x.MongoId,
                         p, new ReplaceOptions() { IsUpsert = true }))
                 .AsAsyncEnumerable();
 
             await foreach (var res in result)
             {
-                _logger.LogInformation("Inserted {Result}", res);
+                _logger.LogDebug("Inserted {Result}", res);
             }
 
             return Right<Exception, Unit>(Unit.Default);

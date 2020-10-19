@@ -6,6 +6,7 @@ using Catalog.Domain.Model;
 using Catalog.Persistence.Model;
 using LanguageExt;
 using MongoDB.Driver;
+using SolrNet.Utils;
 
 namespace Catalog.Persistence.Queries
 {
@@ -21,7 +22,7 @@ namespace Catalog.Persistence.Queries
             ShopId shopId)
         {
             var find = products
-                .Find(x => x.ProductId == id.Value && x.ShopId == shopId.Value);
+                .Find(x => x.MongoId == MongoProduct.GenerateMongoId(id, shopId, DateTime.UtcNow.Date));
 
             return await find.FirstOrDefaultAsync();
         }
@@ -32,7 +33,7 @@ namespace Catalog.Persistence.Queries
         {
             var productsId = ids.Select(x => x.Value).ToList();
             var result = await products
-                .FindSync(x => productsId.Contains(x.ProductId) && x.ShopId == shopId.Value)
+                .FindSync(x => productsId.Contains(x.Id) && x.ShopId == shopId.Value)
                 .ToListAsync();
 
             foreach (var product in result)

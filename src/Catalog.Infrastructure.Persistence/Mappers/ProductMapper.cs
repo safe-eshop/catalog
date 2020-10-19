@@ -23,39 +23,29 @@ namespace Catalog.Persistence.Mappers
 
         public static Product ToProduct(this MongoProduct product)
         {
-            return new Product(new ProductId(product.ProductId), new ShopId(product.ShopId), product.Id,
+            return new Product(new ProductId(product.Id), new ShopId(product.ShopId), product.Slug,
                 ToProductDescription(product.Description), ToProductPrice(product.Price),
                 ToProductDetails(product.Details), product.Tags);
         }
-        
+
         public static MongoProduct ToMongoProduct(this Product product, DateTime effectiveDate)
         {
-            return new MongoProduct()
+            return MongoProduct.Create(product.Id, product.ShopId, effectiveDate.Date, new MongoProductDescription()
             {
-                Id = product.Slug,
-                ProductId = product.Id.Value,
-                Description = new MongoProductDescription()
-                {
-                    Brand = product.Description.Brand,
-                    Description = product.Description.Description,
-                    Name = product.Description.Name
-                },
-                Details = new MongoProductDetails()
-                {
-                    Color = product.Details.Color,
-                    Picture = product.Details.Picture,
-                    Weight = product.Details.Weight,
-                    WeightUnits = product.Details.WeightUnits
-                },
-                Price = new MongoPrice()
-                {
-                    Promotional = (double?) product.Price.Promotional,
-                    Regular = (double) product.Price.Regular
-                },
-                Tags = product.Tags,
-                EffectiveDate = effectiveDate,
-                ShopId = product.ShopId.Value
-            };
+                Brand = product.Description.Brand,
+                Description = product.Description.Description,
+                Name = product.Description.Name
+            }, new MongoProductDetails()
+            {
+                Color = product.Details.Color,
+                Picture = product.Details.Picture,
+                Weight = product.Details.Weight,
+                WeightUnits = product.Details.WeightUnits
+            }, new MongoPrice()
+            {
+                Promotional = (double?) product.Price.Promotional,
+                Regular = (double) product.Price.Regular
+            }, product.Tags);
         }
     }
 }

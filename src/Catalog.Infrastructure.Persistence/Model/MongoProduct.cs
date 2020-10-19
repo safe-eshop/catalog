@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Catalog.Domain.Model;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -9,15 +10,37 @@ namespace Catalog.Persistence.Model
     {
         [BsonId] 
         [BsonRepresentation(BsonType.String)]
-        public string Id { get; set; }
-        
-        public int ProductId { get; set; }
+        public string MongoId { get; set; }
+        public int Id { get; set; }
         public int ShopId { get; set; }
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc, DateOnly = true)]
         public DateTime EffectiveDate { get; set; }
         public MongoProductDescription Description { get; set; }
         public MongoProductDetails Details { get; set; }
         public MongoPrice Price { get; set; }
         public IEnumerable<string> Tags { get; set; }
+
+        public string Slug => $"{Id}__{ShopId}";
+
+        public static MongoProduct Create(ProductId id, ShopId shopId, DateTime effectiveDate, MongoProductDescription description, MongoProductDetails details, MongoPrice price, IEnumerable<string> tags)
+        {
+            return new MongoProduct()
+            {
+                MongoId = GenerateMongoId(id, shopId, effectiveDate),
+                Id = id.Value,
+                ShopId = shopId.Value,
+                Description = description,
+                Details = details,
+                Price = price,
+                Tags = tags,
+                EffectiveDate = effectiveDate
+            };
+        }
+
+        public static string GenerateMongoId(ProductId id, ShopId shopId, DateTime effectiveDate)
+        {
+            return $"{id.Value}_{shopId.Value}_{effectiveDate:ddMMyyyy}";
+        }
     }
 
     public class MongoProductDetails

@@ -19,7 +19,7 @@ namespace Catalog.Persistence.Repositories.Import
                 }).SelectMany(x => x).ToAsyncEnumerable();
         }
 
-        private IEnumerable<Product> Generate(ProductId productId, IEnumerable<ShopId> shopIds)
+        private static IEnumerable<Product> Generate(ProductId productId, IEnumerable<ShopId> shopIds)
         {
             var faker = new Faker("en");
             var details = new ProductDetails(faker.Commerce.Random.Double(), "kg", faker.Image.PicsumUrl(),
