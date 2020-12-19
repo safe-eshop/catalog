@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Catalog.Core.Repository;
 using Catalog.Core.UseCases.Import;
-using Catalog.Domain.Repository;
 using Catalog.ImportData.Framework.Logging;
 using Catalog.Infrastructure.Persistence.Extensions;
 using Catalog.Infrastructure.Persistence.Repositories.Import;

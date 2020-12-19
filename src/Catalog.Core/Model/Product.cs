@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Catalog.Core.Model
 {
@@ -19,7 +20,10 @@ namespace Catalog.Core.Model
         public static implicit operator string(Tag tag) => tag.Value;
     }
 
-    public record Tags(IEnumerable<Tag> Value);
+    public record Tags(IEnumerable<Tag> Value)
+    {
+        public IEnumerable<string> GetTags() => Value.Select(tag => tag.Value).ToList();
+    }
 
     public record Price(decimal Regular, decimal? Promotional)
     {

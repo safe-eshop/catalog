@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using Catalog.Core.Model;
 using Catalog.Infrastructure.Persistence.Model;
 
 namespace Catalog.Infrastructure.Persistence.Mappers
@@ -24,7 +26,8 @@ namespace Catalog.Infrastructure.Persistence.Mappers
         {
             return new Product(new ProductId(product.Id), new ShopId(product.ShopId), product.Slug,
                 ToProductDescription(product.Description), ToProductPrice(product.Price),
-                ToProductDetails(product.Details), product.Tags);
+                ToProductDetails(product.Details),
+                new Tags(product.Tags.Select(x => new Tag(x))));
         }
 
         public static MongoProduct ToMongoProduct(this Product product, DateTime effectiveDate)
@@ -44,7 +47,7 @@ namespace Catalog.Infrastructure.Persistence.Mappers
             {
                 Promotional = (double?) product.Price.Promotional,
                 Regular = (double) product.Price.Regular
-            }, product.Tags);
+            }, product.Tags.GetTags());
         }
     }
 }

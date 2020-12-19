@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Catalog.Domain.Model;
-using Catalog.Persistence.Extensions;
-using Catalog.Persistence.Queries;
-using Catalog.Persistence.Repositories.Catalog;
+using Catalog.Core.Model;
+using Catalog.Infrastructure.Persistence.Extensions;
+using Catalog.Infrastructure.Persistence.Queries;
+using Catalog.Infrastructure.Persistence.Repositories.Catalog;
 using FluentAssertions;
 using MongoDB.Driver;
 using Xunit;
-using static LanguageExt.FSharp;
 
 namespace Catalog.Infrastructure.Tests.Repository
 {

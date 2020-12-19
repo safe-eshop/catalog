@@ -1,4 +1,4 @@
-﻿using Catalog.Domain.Repository;
+﻿using Catalog.Core.Repository;
 using Catalog.Infrastructure.Persistence.Caching.Catalog;
 using Catalog.Infrastructure.Persistence.Extensions;
 using Catalog.Infrastructure.Persistence.Repositories.Catalog;

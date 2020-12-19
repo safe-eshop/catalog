@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Catalog.Core.Model;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 

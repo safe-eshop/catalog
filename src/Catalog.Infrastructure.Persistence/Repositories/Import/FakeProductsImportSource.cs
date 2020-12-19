@@ -31,8 +31,10 @@ namespace Catalog.Infrastructure.Persistence.Repositories.Import
             {
                 var slug = Product.GenerateSlug(productId, shopId);
                 return new Product(productId, shopId, slug, desc, new Price(decimal.Parse(faker.Commerce.Price(100)),
-                    faker.Random.Bool() ? (decimal?) null : decimal.Parse(faker.Commerce.Price(1, 99))), details, tags);
+                    faker.Random.Bool() ? (decimal?) null : decimal.Parse(faker.Commerce.Price(1, 99))), details, GenerateTags(tags));
             });
         }
+
+        private static Tags GenerateTags(IEnumerable<string> tags) => new(tags.Select(x => new Tag(x)));
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Catalog.Core.Model;
+using Catalog.Core.Repository;
 using Catalog.Infrastructure.Persistence.Mappers;
 using Catalog.Infrastructure.Persistence.Model;
 using LanguageExt;

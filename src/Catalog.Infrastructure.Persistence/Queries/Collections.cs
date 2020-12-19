@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Catalog.Core.Model;
 using Catalog.Infrastructure.Persistence.Model;
 using LanguageExt;
 using MongoDB.Driver;

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Catalog.Core.Model;
+using Catalog.Core.Repository;
 using Catalog.Infrastructure.Persistence.Mappers;
 using Catalog.Infrastructure.Persistence.Queries;
 using LanguageExt;
