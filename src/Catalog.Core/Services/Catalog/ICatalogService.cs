@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Catalog.Application.Dto.Common;
-using Catalog.Domain.Model;
+using Catalog.Core.Dto.Common;
+using Catalog.Core.Model;
 using LanguageExt;
 
-namespace Catalog.Application.Services.Catalog
+namespace Catalog.Core.Services.Catalog
 {
     public interface ICatalogService
     {

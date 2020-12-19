@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Catalog.Domain.Model;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Catalog.Persistence.Model
+namespace Catalog.Infrastructure.Persistence.Model
 {
     public class MongoProduct
     {

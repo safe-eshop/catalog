@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Catalog.Domain.Model;
-using Catalog.Persistence.Model;
+using Catalog.Infrastructure.Persistence.Model;
 using LanguageExt;
 using MongoDB.Driver;
 
-namespace Catalog.Persistence.Queries
+namespace Catalog.Infrastructure.Persistence.Queries
 {
     public static class Collections
     {

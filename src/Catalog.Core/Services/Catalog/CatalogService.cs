@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Catalog.Application.Dto.Common;
-using Catalog.Application.Mappers.Common;
-using Catalog.Domain.Model;
-using Catalog.Domain.Repository;
-using FSharpx;
+using Catalog.Core.Dto.Common;
+using Catalog.Core.Mappers.Common;
+using Catalog.Core.Model;
+using Catalog.Core.Repository;
 using LanguageExt;
-using static LanguageExt.Prelude;
-using static LanguageExt.FSharp;
 
-namespace Catalog.Application.Services.Catalog
+namespace Catalog.Core.Services.Catalog
 {
     public class CatalogService : ICatalogService
     {

@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Catalog.Domain.Model;
-using Catalog.Domain.Repository;
-using Catalog.Persistence.Mappers;
-using Catalog.Persistence.Model;
+using Catalog.Infrastructure.Persistence.Mappers;
+using Catalog.Infrastructure.Persistence.Model;
 using LanguageExt;
 using Microsoft.Extensions.Caching.Distributed;
 using static LanguageExt.Prelude;
 
-namespace Catalog.Persistence.Caching.Catalog
+namespace Catalog.Infrastructure.Persistence.Caching.Catalog
 {
     public class CatalogRepositoryCacheDecorator : ICatalogRepository
     {

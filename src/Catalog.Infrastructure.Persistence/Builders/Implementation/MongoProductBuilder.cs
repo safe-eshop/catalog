@@ -1,8 +1,7 @@
-﻿using Catalog.Domain.Model;
-using Catalog.Persistence.Builders.Asbtraction;
-using Catalog.Persistence.Model;
+﻿using Catalog.Infrastructure.Persistence.Builders.Asbtraction;
+using Catalog.Infrastructure.Persistence.Model;
 
-namespace Catalog.Persistence.Builders.Implementation
+namespace Catalog.Infrastructure.Persistence.Builders.Implementation
 {
     internal class MongoProductBuilder : IBuilder<MongoProduct>
     {

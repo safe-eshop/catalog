@@ -1,10 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Catalog.Domain.Repository;
+﻿using System.Threading.Tasks;
+using Catalog.Core.Repository;
 using Microsoft.Extensions.Logging;
-using Open.ChannelExtensions;
 
-namespace Catalog.Application.UseCases.Import
+namespace Catalog.Core.UseCases.Import
 {
     public class FullImportProductsTodayUseCase
     {

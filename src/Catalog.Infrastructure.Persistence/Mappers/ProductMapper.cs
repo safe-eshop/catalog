@@ -1,8 +1,7 @@
 ﻿using System;
-using Catalog.Domain.Model;
-using Catalog.Persistence.Model;
+using Catalog.Infrastructure.Persistence.Model;
 
-namespace Catalog.Persistence.Mappers
+namespace Catalog.Infrastructure.Persistence.Mappers
 {
     public static class ProductMapperExtensions
     {

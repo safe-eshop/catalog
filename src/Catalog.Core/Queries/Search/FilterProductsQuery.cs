@@ -1,4 +1,4 @@
-﻿namespace Catalog.Application.Queries.Search
+﻿namespace Catalog.Core.Queries.Search
 {
     public class FilterProductsQuery
     {

@@ -1,4 +1,4 @@
-﻿using Catalog.Application.Dto.Common;
+﻿using Catalog.Core.Dto.Common;
 
 namespace Catalog.Api.Framework.Responses.Mappers
 {

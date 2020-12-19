@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bogus;
-using Catalog.Domain.Model;
-using Catalog.Domain.Repository;
+using Catalog.Core.Model;
+using Catalog.Core.Repository;
 
-namespace Catalog.Persistence.Repositories.Import
+namespace Catalog.Infrastructure.Persistence.Repositories.Import
 {
     public class FakeProductsImportSource : IProductsImportSource
     {
@@ -29,7 +29,7 @@ namespace Catalog.Persistence.Repositories.Import
             var tags = faker.Commerce.Categories(5);
             return shopIds.Select(shopId =>
             {
-                var slug = ProductModule.generateSlug(productId, shopId);
+                var slug = Product.GenerateSlug(productId, shopId);
                 return new Product(productId, shopId, slug, desc, new Price(decimal.Parse(faker.Commerce.Price(100)),
                     faker.Random.Bool() ? (decimal?) null : decimal.Parse(faker.Commerce.Price(1, 99))), details, tags);
             });

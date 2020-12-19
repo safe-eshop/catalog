@@ -1,7 +1,7 @@
-﻿using Catalog.Application.Services.Catalog;
-using Catalog.Application.Services.Search;
-using Catalog.Application.UseCases.Catalog;
-using Catalog.Application.UseCases.Search;
+﻿using Catalog.Core.Services.Catalog;
+using Catalog.Core.Services.Search;
+using Catalog.Core.UseCases.Catalog;
+using Catalog.Core.UseCases.Search;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Catalog.Api.Framework.Application

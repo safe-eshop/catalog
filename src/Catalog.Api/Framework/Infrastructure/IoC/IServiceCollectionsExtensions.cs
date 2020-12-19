@@ -1,7 +1,7 @@
 ﻿using Catalog.Domain.Repository;
-using Catalog.Persistence.Caching.Catalog;
-using Catalog.Persistence.Extensions;
-using Catalog.Persistence.Repositories.Catalog;
+using Catalog.Infrastructure.Persistence.Caching.Catalog;
+using Catalog.Infrastructure.Persistence.Extensions;
+using Catalog.Infrastructure.Persistence.Repositories.Catalog;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;

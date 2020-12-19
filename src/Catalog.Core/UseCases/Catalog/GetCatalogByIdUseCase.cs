@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Catalog.Application.Dto.Common;
-using Catalog.Application.Services.Catalog;
-using Catalog.Domain.Model;
+using Catalog.Core.Dto.Common;
+using Catalog.Core.Model;
+using Catalog.Core.Services.Catalog;
 using LanguageExt;
 
-namespace Catalog.Application.UseCases.Catalog
+namespace Catalog.Core.UseCases.Catalog
 {
     public sealed class GetCatalogByIdUseCase
     {

@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Catalog.Domain.Model;
-using Catalog.Domain.Repository;
-using Catalog.Persistence.Mappers;
-using Catalog.Persistence.Queries;
+using Catalog.Infrastructure.Persistence.Mappers;
+using Catalog.Infrastructure.Persistence.Queries;
 using LanguageExt;
 using MongoDB.Driver;
 
-namespace Catalog.Persistence.Repositories.Catalog
+namespace Catalog.Infrastructure.Persistence.Repositories.Catalog
 {
     public class CatalogRepository : ICatalogRepository
     {

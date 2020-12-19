@@ -1,4 +1,4 @@
-﻿namespace Catalog.Persistence.Queries
+﻿namespace Catalog.Infrastructure.Persistence.Queries
 {
     public class CatalogQueries
     {

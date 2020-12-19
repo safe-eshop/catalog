@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Catalog.Application.Dto.Filter;
-using Catalog.Application.Queries.Search;
-using Catalog.Application.Services.Search;
+using Catalog.Core.Dto.Filter;
+using Catalog.Core.Queries.Search;
+using Catalog.Core.Services.Search;
 using LanguageExt;
 
-namespace Catalog.Application.UseCases.Search
+namespace Catalog.Core.UseCases.Search
 {
     public class BrowseProductsUseCase
     {

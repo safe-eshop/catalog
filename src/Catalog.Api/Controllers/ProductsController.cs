@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using Catalog.Api.Framework.Requests;
 using Catalog.Api.Framework.Responses;
 using Catalog.Api.Framework.Responses.Mappers;
-using Catalog.Application.Queries.Search;
-using Catalog.Application.UseCases.Catalog;
-using Catalog.Application.UseCases.Search;
-using Catalog.Domain.Model;
+using Catalog.Core.Model;
+using Catalog.Core.Queries.Search;
+using Catalog.Core.UseCases.Catalog;
+using Catalog.Core.UseCases.Search;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.Api.Controllers

@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Catalog.Application.Dto.Filter;
-using Catalog.Application.Queries.Search;
+using Catalog.Core.Dto.Filter;
+using Catalog.Core.Queries.Search;
 using LanguageExt;
 using static LanguageExt.Prelude;
 
-namespace Catalog.Application.Services.Search
+namespace Catalog.Core.Services.Search
 {
     public class ProductFilter : IProductFilter
     {

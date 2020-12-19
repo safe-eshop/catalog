@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Catalog.Application.Dto.Common;
-using Catalog.Domain.Model;
+﻿using System.Collections.Generic;
+using Catalog.Core.Dto.Common;
+using Catalog.Core.Model;
 
-namespace Catalog.Application.Dto.Filter
+namespace Catalog.Core.Dto.Filter
 {
     public class PagedProductListDto
     {

@@ -1,4 +1,4 @@
-﻿namespace Catalog.Persistence.Builders.Asbtraction
+﻿namespace Catalog.Infrastructure.Persistence.Builders.Asbtraction
 {
     public interface IBuilder<T>
     {

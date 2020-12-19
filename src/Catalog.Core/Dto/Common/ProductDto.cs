@@ -1,70 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Catalog.Domain.Model;
+﻿using System.Collections.Generic;
+using Catalog.Core.Model;
 
-namespace Catalog.Application.Dto.Common
+namespace Catalog.Core.Dto.Common
 {
-    public class ProductDto
-    {
-        public ProductId Id { get; }
-        public ShopId ShopId { get;  }
-        public string Slug { get; }
-        public ProductDescriptionDto Description { get; }
-        public ProductDetailsDto Details { get; }
-        public PriceDto Price { get; }
-        public IEnumerable<string> Tags { get; }
+    public record ProductDto(ProductId Id, ShopId ShopId, string Slug, ProductDescriptionDto Description, PriceDto Price,
+        ProductDetailsDto Details, IEnumerable<string> Tags);
 
-        public ProductDto(ProductId id, ShopId shopId, string slug, ProductDescriptionDto description, ProductDetailsDto details, PriceDto price, IEnumerable<string> tags)
-        {
-            Id = id;
-            ShopId = shopId;
-            Slug = slug;
-            Description = description;
-            Details = details;
-            Price = price;
-            Tags = tags;
-        }
-    }
+    public record ProductDetailsDto(double Weight, string WeightUnits, string Picture, string Color);
 
-    public class ProductDetailsDto
-    {
-        public double Weight { get;  }
-        public string WeightUnits { get; }
-        public string Picture { get;  }
-        public string Color { get;  }
+    public record ProductDescriptionDto(string Name, string Brand, string Description);
 
-        public ProductDetailsDto(double weight, string weightUnits, string picture, string color)
-        {
-            Weight = weight;
-            WeightUnits = weightUnits;
-            Picture = picture;
-            Color = color;
-        }
-    }
-
-    public class ProductDescriptionDto
-    {
-        public string Name { get; }
-        public string Brand { get; }
-        public string Description { get; }
-
-        public ProductDescriptionDto(string name, string brand, string description)
-        {
-            Name = name;
-            Brand = brand;
-            Description = description;
-        }
-    }
-
-    public class PriceDto
-    {
-        public decimal Regular { get;}
-        public decimal? Promotional { get; }
-
-        public PriceDto(decimal regular, decimal? promotional)
-        {
-            Regular = regular;
-            Promotional = promotional;
-        }
-    }
+    public record PriceDto(decimal Regular, decimal? Promotional);
 }

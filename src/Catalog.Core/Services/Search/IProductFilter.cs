@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Catalog.Application.Dto.Filter;
-using Catalog.Application.Queries.Search;
-using Catalog.Domain.Model;
+﻿using System.Threading.Tasks;
+using Catalog.Core.Dto.Filter;
+using Catalog.Core.Queries.Search;
 using LanguageExt;
 
-namespace Catalog.Application.Services.Search
+namespace Catalog.Core.Services.Search
 {
     public interface IProductFilter
     {

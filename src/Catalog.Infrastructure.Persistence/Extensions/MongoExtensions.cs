@@ -1,8 +1,8 @@
-﻿using Catalog.Persistence.Model;
+﻿using Catalog.Infrastructure.Persistence.Model;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
-namespace Catalog.Persistence.Extensions
+namespace Catalog.Infrastructure.Persistence.Extensions
 {
     public static class MongoExtensions
     {

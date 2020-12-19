@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Catalog.Application.UseCases.Import;
+using Catalog.Core.Repository;
+using Catalog.Core.UseCases.Import;
 using Catalog.Domain.Repository;
 using Catalog.ImportData.Framework.Logging;
-using Catalog.Persistence.Extensions;
-using Catalog.Persistence.Repositories.Import;
+using Catalog.Infrastructure.Persistence.Extensions;
+using Catalog.Infrastructure.Persistence.Repositories.Import;
 using Cocona;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
