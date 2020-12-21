@@ -3,8 +3,10 @@ using Catalog.Core.Model;
 
 namespace Catalog.Core.Repository
 {
+    public record SearchParameters(string Query);
+    
     public interface IProductSearcher
     {
-        IAsyncEnumerable<Product> Search(IEnumerable<ProductId> ids, ShopId shopId);
+        IAsyncEnumerable<Product> Search(SearchParameters parameters);
     }
 }

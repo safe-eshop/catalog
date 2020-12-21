@@ -22,7 +22,7 @@ namespace Catalog.Core.UseCases.Import
         {
             _logger.LogInformation("Start Import Today");
             var res = _source
-                .GetProductsToImport();
+                .ProduceProductsToImport();
 
             await _importWriteRepository.Store(res);
             

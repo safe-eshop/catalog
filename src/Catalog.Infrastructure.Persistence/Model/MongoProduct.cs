@@ -24,7 +24,7 @@ namespace Catalog.Infrastructure.Persistence.Model
 
         public static MongoProduct Create(ProductId id, ShopId shopId, DateTime effectiveDate, MongoProductDescription description, MongoProductDetails details, MongoPrice price, IEnumerable<string> tags)
         {
-            return new MongoProduct()
+            return new()
             {
                 MongoId = GenerateMongoId(id, shopId, effectiveDate),
                 Id = id.Value,
