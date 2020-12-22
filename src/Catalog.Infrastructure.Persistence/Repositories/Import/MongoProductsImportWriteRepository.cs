@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using Catalog.Core.Model;
 using Catalog.Core.Repository;
@@ -25,17 +27,18 @@ namespace Catalog.Infrastructure.Persistence.Repositories.Import
             _logger = logger;
         }
 
-        public async Task<Either<Exception, Unit>> Store(IAsyncEnumerable<Product> productsSource)
+        public async Task<Either<Exception, Unit>> Store(ChannelReader<Product> productsSource,
+            CancellationToken cancellationToken = default)
         {
             var products = _database.ProductsCollection();
-            var result = productsSource.ToChannel()
+            var result = productsSource
                 .Pipe(x => x.ToMongoProduct(DateTime.UtcNow))
-                .PipeAsync(Environment.ProcessorCount,
-                    async p => await products.ReplaceOneAsync(x => p.MongoId == x.MongoId,
-                        p, new ReplaceOptions() { IsUpsert = true }))
-                .AsAsyncEnumerable();
+                .PipeAsync(Environment.ProcessorCount, async p => await products.ReplaceOneAsync(
+                        x => p.MongoId == x.MongoId,
+                        p, new ReplaceOptions() {IsUpsert = true}, cancellationToken),
+                    cancellationToken: cancellationToken);
 
-            await foreach (var res in result)
+            await foreach (var res in result.ReadAllAsync(cancellationToken))
             {
                 _logger.LogDebug("Inserted {Result}", res);
             }

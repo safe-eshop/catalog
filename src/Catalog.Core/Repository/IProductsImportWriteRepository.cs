@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using Catalog.Core.Model;
@@ -9,6 +9,7 @@ namespace Catalog.Core.Repository
 {
     public interface IProductsImportWriteRepository
     {
-        Task<Either<Exception, Unit>> Store(ChannelReader<Product> products);
+        Task<Either<Exception, Unit>> Store(ChannelReader<Product> products,
+            CancellationToken cancellationToken = default);
     }
 }
