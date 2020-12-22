@@ -12,7 +12,7 @@ using MongoDB.Driver;
 
 namespace Catalog.ImportData
 {
-    class Program
+    class Program : CoconaConsoleAppBase
     {
         private readonly IConfiguration _configuration;
 
@@ -56,7 +56,7 @@ namespace Catalog.ImportData
 
         public async Task<int> Import([FromService] FullImportProductsTodayUseCase fullImportProductsTodayUse)
         {
-            await fullImportProductsTodayUse.Execute();
+            await fullImportProductsTodayUse.Execute(Context.CancellationToken);
             return 0;
         }
     }

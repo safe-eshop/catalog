@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Catalog.Core.Repository;
 using Microsoft.Extensions.Logging;
 
@@ -18,13 +19,13 @@ namespace Catalog.Core.UseCases.Import
             _logger = logger;
         }
 
-        public async Task Execute()
+        public async Task Execute(CancellationToken cancellationToken = default)
         {
             _logger.LogInformation("Start Import Today");
             var res = _source
-                .ProduceProductsToImport();
+                .ProduceProductsToImport(cancellationToken);
 
-            await _importWriteRepository.Store(res);
+            await _importWriteRepository.Store(res, cancellationToken);
             
             _logger.LogInformation("Finish Import Today");
         }
