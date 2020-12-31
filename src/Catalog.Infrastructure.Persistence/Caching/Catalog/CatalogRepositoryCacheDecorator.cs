@@ -34,7 +34,7 @@ namespace Catalog.Infrastructure.Persistence.Caching.Catalog
                 await dbResult.IfSomeAsync(async res =>
                 {
                     await _distributedCache.SetAsync(key,
-                        Encoding.UTF8.GetBytes(JsonSerializer.Serialize(res.ToMongoProduct(DateTime.UtcNow))), new DistributedCacheEntryOptions
+                        Encoding.UTF8.GetBytes(JsonSerializer.Serialize(new MongoProduct(res))), new DistributedCacheEntryOptions
                             {AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)});
                 });
                 return dbResult;

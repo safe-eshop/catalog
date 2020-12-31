@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Catalog.Core.Model;
 using Catalog.Core.Repository;
 using Catalog.Infrastructure.Persistence.Mappers;
+using Catalog.Infrastructure.Persistence.Model;
 using Catalog.Infrastructure.Persistence.Queries;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
@@ -32,10 +33,10 @@ namespace Catalog.Infrastructure.Persistence.Repositories.Import
         {
             var products = _database.ProductsCollection();
             var result = productsSource
-                .Pipe(x => x.ToMongoProduct(DateTime.UtcNow))
+                .Pipe(x => new MongoProduct(x), cancellationToken: cancellationToken)
                 .PipeAsync(Environment.ProcessorCount, async p => await products.ReplaceOneAsync(
                         x => p.MongoId == x.MongoId,
-                        p, new ReplaceOptions() {IsUpsert = true}, cancellationToken),
+                        p, new ReplaceOptions {IsUpsert = true}, cancellationToken),
                     cancellationToken: cancellationToken);
 
             await foreach (var res in result.ReadAllAsync(cancellationToken))

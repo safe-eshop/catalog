@@ -21,20 +21,23 @@ namespace Catalog.Infrastructure.Persistence.Model
         public IEnumerable<string>? Tags { get; set; }
 
         public string Slug => $"{Id}__{ShopId}";
-
-        public static MongoProduct Create(ProductId id, ShopId shopId, DateTime effectiveDate, MongoProductDescription description, MongoProductDetails details, MongoPrice price, IEnumerable<string> tags)
+        
+        public MongoProduct()
         {
-            return new()
-            {
-                MongoId = GenerateMongoId(id, shopId, effectiveDate),
-                Id = id.Value,
-                ShopId = shopId.Value,
-                Description = description,
-                Details = details,
-                Price = price,
-                Tags = tags,
-                EffectiveDate = effectiveDate
-            };
+            
+        }
+
+        public MongoProduct(Product product)
+        {
+            var effectiveDate = DateTime.UtcNow;
+            Id = product.Id.Value;
+            MongoId = GenerateMongoId(product.Id, product.ShopId, effectiveDate);
+            ShopId = product.ShopId.Value;
+            EffectiveDate = effectiveDate.Date;
+            Description = new MongoProductDescription(product.Description);
+            Details = new MongoProductDetails(product.Details);
+            Price = new MongoPrice(product.Price);
+            Tags = product.Tags.GetTags();
         }
 
         public static string GenerateMongoId(ProductId id, ShopId shopId, DateTime effectiveDate)
@@ -49,6 +52,19 @@ namespace Catalog.Infrastructure.Persistence.Model
         public string? WeightUnits { get; set; }
         public string? Picture { get; set; }
         public string? Color { get; set; }
+
+        public MongoProductDetails()
+        {
+            
+        }
+
+        public MongoProductDetails(ProductDetails details)
+        {
+            Weight = details.Weight;
+            WeightUnits = details.WeightUnits;
+            Picture = details.Picture;
+            Color = details.Color;
+        }
     }
 
     public class MongoProductDescription
@@ -56,11 +72,29 @@ namespace Catalog.Infrastructure.Persistence.Model
         public string? Name { get; set; }
         public string? Brand { get; set; }
         public string? Description { get; set; }
+
+        public MongoProductDescription()
+        {
+            
+        }
+
+        public MongoProductDescription(ProductDescription description)
+        {
+            Name = description.Name;
+            Brand = description.Brand;
+            Description = description.Description;
+        }
     }
 
     public class MongoPrice
     {
         public double Regular { get; set; }
         public double? Promotional { get; set; }
+
+        public MongoPrice(Price price)
+        {
+            Regular = (double)price.Regular;
+            Promotional = (double?) price.Promotional;
+        }
     }
 }

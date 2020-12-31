@@ -29,25 +29,5 @@ namespace Catalog.Infrastructure.Persistence.Mappers
                 ToProductDetails(product.Details),
                 new Tags(product.Tags.Select(x => new Tag(x))));
         }
-
-        public static MongoProduct ToMongoProduct(this Product product, DateTime effectiveDate)
-        {
-            return MongoProduct.Create(product.Id, product.ShopId, effectiveDate.Date, new MongoProductDescription()
-            {
-                Brand = product.Description.Brand,
-                Description = product.Description.Description,
-                Name = product.Description.Name
-            }, new MongoProductDetails()
-            {
-                Color = product.Details.Color,
-                Picture = product.Details.Picture,
-                Weight = product.Details.Weight,
-                WeightUnits = product.Details.WeightUnits
-            }, new MongoPrice()
-            {
-                Promotional = (double?) product.Price.Promotional,
-                Regular = (double) product.Price.Regular
-            }, product.Tags.GetTags());
-        }
     }
 }
