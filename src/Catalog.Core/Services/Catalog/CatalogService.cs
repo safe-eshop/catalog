@@ -11,22 +11,22 @@ namespace Catalog.Core.Services.Catalog
 {
     public class CatalogService : ICatalogService
     {
-        private ICatalogRepository _catalogRepository;
+        private IProductRepository _productRepository;
 
-        public CatalogService(ICatalogRepository catalogRepository)
+        public CatalogService(IProductRepository productRepository)
         {
-            _catalogRepository = catalogRepository;
+            _productRepository = productRepository;
         }
 
         public async Task<Option<ProductDto>> GetProductById(ProductId id, ShopId shopId)
         {
-            var result = await _catalogRepository.GetById(id, shopId).ConfigureAwait(false);
+            var result = await _productRepository.GetById(id, shopId).ConfigureAwait(false);
             return result.Map(prod => prod.MapToDto());
         }
 
         public IAsyncEnumerable<ProductDto> GetProductByIds(IEnumerable<ProductId> ids, ShopId shopId)
         {
-            return _catalogRepository.GetByIds(ids, shopId).Select(x => x.MapToDto());
+            return _productRepository.GetByIds(ids, shopId).Select(x => x.MapToDto());
         }
     }
 }

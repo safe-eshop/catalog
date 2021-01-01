@@ -10,11 +10,11 @@ using MongoDB.Driver;
 
 namespace Catalog.Infrastructure.Persistence.Repositories.Catalog
 {
-    public class CatalogRepository : ICatalogRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly IMongoDatabase _database;
 
-        public CatalogRepository(IMongoDatabase database)
+        public ProductRepository(IMongoDatabase database)
         {
             _database = database;
         }

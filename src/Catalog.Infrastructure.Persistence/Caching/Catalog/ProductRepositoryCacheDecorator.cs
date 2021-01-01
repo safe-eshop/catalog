@@ -13,24 +13,24 @@ using static LanguageExt.Prelude;
 
 namespace Catalog.Infrastructure.Persistence.Caching.Catalog
 {
-    public class CatalogRepositoryCacheDecorator : ICatalogRepository
+    public class ProductRepositoryCacheDecorator : IProductRepository
     {
         private readonly IDistributedCache _distributedCache;
-        private readonly ICatalogRepository _catalogRepository;
+        private readonly IProductRepository _productRepository;
 
-        public CatalogRepositoryCacheDecorator(IDistributedCache distributedCache, ICatalogRepository catalogRepository)
+        public ProductRepositoryCacheDecorator(IDistributedCache distributedCache, IProductRepository productRepository)
         {
             _distributedCache = distributedCache;
-            _catalogRepository = catalogRepository;
+            _productRepository = productRepository;
         }
 
         public async Task<Option<Product>> GetById(ProductId id, ShopId shopId)
         {
-            var key = $"{nameof(ICatalogRepository)}:{nameof(GetById)}:{id.Value}:{shopId.Value}";
+            var key = $"{nameof(IProductRepository)}:{nameof(GetById)}:{id.Value}:{shopId.Value}";
             var result = await _distributedCache.GetStringAsync(key);
             if (string.IsNullOrEmpty(result))
             {
-                var dbResult = await _catalogRepository.GetById(id, shopId);
+                var dbResult = await _productRepository.GetById(id, shopId);
                 await dbResult.IfSomeAsync(async res =>
                 {
                     await _distributedCache.SetAsync(key,
@@ -46,7 +46,7 @@ namespace Catalog.Infrastructure.Persistence.Caching.Catalog
 
         public IAsyncEnumerable<Product> GetByIds(IEnumerable<ProductId> ids, ShopId shopId)
         {
-            return _catalogRepository.GetByIds(ids, shopId);
+            return _productRepository.GetByIds(ids, shopId);
         }
     }
 }

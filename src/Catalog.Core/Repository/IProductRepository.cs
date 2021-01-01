@@ -5,7 +5,7 @@ using LanguageExt;
 
 namespace Catalog.Core.Repository
 {
-    public interface ICatalogRepository
+    public interface IProductRepository
     {
         Task<Option<Product>> GetById(ProductId id, ShopId shopId);
         IAsyncEnumerable<Product> GetByIds(IEnumerable<ProductId> ids, ShopId shopId);

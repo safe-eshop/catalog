@@ -19,8 +19,8 @@ namespace Catalog.Api.Framework.Infrastructure.IoC
         }
         private static void AddRepositories(this IServiceCollection services)
         {
-            services.AddTransient<ICatalogRepository, CatalogRepository>();
-            services.Decorate<ICatalogRepository, CatalogRepositoryCacheDecorator>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.Decorate<IProductRepository, ProductRepositoryCacheDecorator>();
         }
         
         private static void AddDatabase(this IServiceCollection services, IConfiguration configuration)

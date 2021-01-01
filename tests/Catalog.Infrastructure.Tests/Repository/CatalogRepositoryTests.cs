@@ -43,7 +43,7 @@ namespace Catalog.Infrastructure.Tests.Repository
         {
             var id = new ProductId(1);
             var shopId = new ShopId(1);
-            var repository = new CatalogRepository(_mongoDbFixture.Database);
+            var repository = new ProductRepository(_mongoDbFixture.Database);
 
             var productOpt = await repository.GetById(id, shopId);
 
