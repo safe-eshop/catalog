@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Core.Dto.Filter;
+using Catalog.Core.Mappers.Common;
 using Catalog.Core.Model;
 using Catalog.Core.Queries.Search;
 using Catalog.Core.Repository;
@@ -21,14 +22,23 @@ namespace Catalog.Core.Services.Search
             _repository = repository;
         }
 
-        public async Task<Option<PagedProductListDto>> FilterProducts(FilterProductsQuery query)
+        public async Task<PagedProductListDto?> FilterProducts(FilterProductsQuery query)
         {
-            var productsIds = await _productSearcher.Filter(query);
-            var result = productsIds.Case switch
+            var pagedProductList = await _productSearcher.Search(new SearchProductsQuery(query));
+
+            if (pagedProductList is null)
             {
-                PagedProductList productList => Some(1),
-                _ => None
-            };
+                return null;
+            }
+
+            var productsIds = pagedProductList.ProductIds;
+            
+            var result = await _repository.GetByIds(productsIds, query.ShopNumber)
+                .OrderBy(product => productsIds.IndexOf(product.Id))
+                .Select(product => product.MapToDto())
+                .ToListAsync();
+
+            return new PagedProductListDto(result, pagedProductList.TotalItems, pagedProductList.TotalPages);
         }
     }
 }

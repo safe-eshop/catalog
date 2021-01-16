@@ -6,7 +6,16 @@ using LanguageExt;
 
 namespace Catalog.Core.Repository
 {
-    public record SearchParameters(string Query);
+    public record QueryParameters(string Query);
+
+    public record SearchProductsQuery(ShopId ShopNumber, int PageSize, int Page, int? CategoryId, double? MaxPrice,
+        double? MinPrice, double? MinRating, string? SortOrder)
+    {
+        public SearchProductsQuery(FilterProductsQuery query) : this(query.ShopNumber, query.PageSize, query.Page,
+            query.CategoryId, query.MaxPrice, query.MinPrice, query.MinRating, query.SortOrder)
+        {
+        }
+    }
 
     public record SearchAndFilterParameters(string Query, int ShopNumber, int PageSize, int Page, int? CategoryId,
         double? MaxPrice,
@@ -16,7 +25,7 @@ namespace Catalog.Core.Repository
 
     public interface IProductSearcher
     {
-        Task<Option<PagedProductList>> Search(SearchParameters parameters);
-        Task<Option<PagedProductList>> Filter(FilterProductsQuery filterProductsQuery);
+        Task<Option<PagedProductList>> Query(QueryParameters parameters);
+        Task<PagedProductList?> Search(SearchProductsQuery filterProductsQuery);
     }
 }

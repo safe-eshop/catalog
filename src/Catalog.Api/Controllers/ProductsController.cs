@@ -46,9 +46,7 @@ namespace Catalog.Api.Controllers
         public async Task<ActionResult<ProductListResponse>> SearchProducts([FromBody] FilterProductsRequest request,
             [FromServices] BrowseProductsUseCase useCase)
         {
-            var result = await useCase.Execute(new FilterProductsQuery(request.ShopNumber, request.PageSize,
-                request.Page,
-                request.CategoryId, request.MaxPrice, request.MinPrice, request.MinRating, request.SortOrder));
+            var result = await useCase.Execute(request.MapToFilterProductsQuery());
             return result.Match<ActionResult<ProductListResponse>>(res => Ok(res), () => NoContent());
         }
     }

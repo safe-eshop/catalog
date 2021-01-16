@@ -7,6 +7,6 @@ namespace Catalog.Core.Services.Search
 {
     public interface IProductFilter
     {
-        Task<Option<PagedProductListDto>> FilterProducts(FilterProductsQuery query);
+        Task<PagedProductListDto?> FilterProducts(FilterProductsQuery query);
     }
 }

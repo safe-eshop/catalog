@@ -1,4 +1,7 @@
-﻿namespace Catalog.Api.Framework.Requests
+﻿using Catalog.Core.Model;
+using Catalog.Core.Queries.Search;
+
+namespace Catalog.Api.Framework.Requests
 {
     public class FilterProductsRequest
     {
@@ -9,6 +12,11 @@
         public double? MaxPrice { get; set; }
         public double? MinPrice { get; set; }
         public double? MinRating { get; set; }
-        public string SortOrder { get; set; }
+        public string? SortOrder { get; set; }
+
+        public FilterProductsQuery MapToFilterProductsQuery() =>
+            new(new ShopId(ShopNumber), PageSize,
+                Page,
+                CategoryId, MaxPrice, MinPrice, MinRating, SortOrder);
     }
 }
