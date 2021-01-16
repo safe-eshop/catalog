@@ -27,6 +27,7 @@ namespace Catalog.Core.Services.Search
             var pagedProductList = await _productSearcher.Search(new SearchProductsQuery(query));
 
             if (pagedProductList is null)
+                
             {
                 return null;
             }

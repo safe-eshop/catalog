@@ -47,7 +47,12 @@ namespace Catalog.Api.Controllers
             [FromServices] BrowseProductsUseCase useCase)
         {
             var result = await useCase.Execute(request.MapToFilterProductsQuery());
-            return result.Match<ActionResult<ProductListResponse>>(res => Ok(res), () => NoContent());
+            if (result is null)
+            {
+                return NoContent();
+            }
+
+            return Ok(result);
         }
     }
 }

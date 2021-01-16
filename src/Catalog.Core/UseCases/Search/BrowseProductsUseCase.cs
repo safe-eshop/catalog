@@ -15,7 +15,7 @@ namespace Catalog.Core.UseCases.Search
             _filter = filter;
         }
 
-        public async Task<Option<PagedProductListDto>> Execute(FilterProductsQuery query)
+        public async Task<PagedProductListDto?> Execute(FilterProductsQuery query)
         {
             return await _filter.FilterProducts(query);
         }
