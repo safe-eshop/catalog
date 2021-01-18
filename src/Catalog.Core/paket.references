@@ -3,3 +3,4 @@ System.Linq.Async
 System.Threading.Channels
 Open.ChannelExtensions
 Microsoft.Extensions.Logging.Abstractions
+Microsoft.Extensions.DependencyInjection.Abstractions

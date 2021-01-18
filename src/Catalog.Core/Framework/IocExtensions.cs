@@ -4,26 +4,17 @@ using Catalog.Core.UseCases.Catalog;
 using Catalog.Core.UseCases.Search;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Catalog.Api.Framework.Application
+namespace Catalog.Core.Framework
 {
-    public static class IoC
+    public static class IocExtensions
     {
-        public static void AddApplication(this IServiceCollection services)
-        {
-            services.AddApplicationServices();
-            services.AddApplicationUseCases();
-        }
-
-        private static void AddApplicationServices(this IServiceCollection services)
+        public static IServiceCollection AddCore(this IServiceCollection services)
         {
             services.AddScoped<ICatalogService, CatalogService>();
             services.AddScoped<IProductFilter, ProductFilter>();
-        }
-
-        private static void AddApplicationUseCases(this IServiceCollection services)
-        {
             services.AddScoped<GetCatalogByIdUseCase>();
             services.AddScoped<BrowseProductsUseCase>();
+            return services;
         }
     }
 }

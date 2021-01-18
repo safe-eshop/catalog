@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Catalog.Api.Framework.Application;
 using Catalog.Api.Framework.Infrastructure.IoC;
 using Catalog.Api.Framework.Infrastructure.Logging;
+using Catalog.Core.Framework;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -27,26 +27,19 @@ namespace Catalog.Api
         }
 
         public IConfiguration Configuration { get; }
-        
+
         public string PathBase => Configuration[PathBaseEnviromentVariable] ?? string.Empty;
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddJsonOptions(x =>
-            {
-                x.JsonSerializerOptions.IgnoreNullValues = true;
-                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            });
-            
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Notification.Center", Version = "v1"});
-            });
-            services.AddApplication();
-            services.AddInfrastructure(Configuration);
-            services.AddHealthChecks().AddMongoDb(Configuration.GetConnectionString("Products"));
+            services
+                .AddSAspNetCore()
+                .AddSwagger()
+                .AddCore()
+                .AddInfrastructure(Configuration)
+                .AddHealth(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,12 +50,12 @@ namespace Catalog.Api
                 Log.Logger.Information($"Set BasePath {PathBase}");
                 app.UsePathBase(PathBase);
             }
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseSerilogRequestLogging(opts =>
             {
                 opts.EnrichDiagnosticContext = RequestLogging.EnrichFromRequest;
