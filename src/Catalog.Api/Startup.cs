@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Catalog.Api.Framework.Infrastructure.IoC;
 using Catalog.Api.Framework.Infrastructure.Logging;
 using Catalog.Core.Framework;
+using Catalog.Infrastructure.Persistence.Framework.IoC;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;

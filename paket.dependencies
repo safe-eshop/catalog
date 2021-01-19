@@ -31,6 +31,7 @@ nuget System.Linq.Async
 nuget System.Threading.Channels
 nuget Open.ChannelExtensions
 nuget Cocona
+nuget Microsoft.Extensions.Configuration.Abstractions
 nuget System.Text.Json
 nuget Microsoft.Extensions.Logging.Abstractions 
 nuget Microsoft.Extensions.Caching.StackExchangeRedis

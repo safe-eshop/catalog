@@ -2,6 +2,7 @@
 using Catalog.Core.Repository;
 using Catalog.Infrastructure.Persistence.Caching.Catalog;
 using Catalog.Infrastructure.Persistence.Extensions;
+using Catalog.Infrastructure.Persistence.Framework.IoC;
 using Catalog.Infrastructure.Persistence.Repositories.Catalog;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,47 +33,9 @@ namespace Catalog.Api.Framework.Infrastructure.IoC
         
         public static IServiceCollection AddHealth(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddHealthChecks().AddMongoDb(configuration.GetConnectionString("Products"));
+            services.AddHealthChecks().AddCatalogInfrastructureHealthChecks(configuration);
             return services;
         }
         
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddRepositories();
-            services.AddDatabase(configuration);
-            services.AddCache(configuration);
-            return services;
-        }
-        private static void AddRepositories(this IServiceCollection services)
-        {
-            services.AddTransient<IProductRepository, ProductRepository>();
-            services.Decorate<IProductRepository, ProductRepositoryCacheDecorator>();
-        }
-        
-        private static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddSingleton<IMongoClient>(ctx =>
-            {
-                var connectionString = configuration.GetConnectionString("Products");
-                return new MongoClient(new MongoUrl(connectionString));
-            });
-
-            services.AddSingleton<IMongoDatabase>(ctx =>
-            {
-                var client = ctx.GetService<IMongoClient>();
-                var db = client.GetDatabase("Catalog");
-                db.AddCollections();
-                return db;
-            });
-        }
-        
-        private static void AddCache(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = configuration.GetConnectionString("ProductsCache");
-                options.InstanceName = nameof(Catalog);
-            });
-        }
     }
 }
