@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Catalog.Infrastructure.Persistence.Model
 {
-    public class MongoProduct
+    internal class MongoProduct
     {
         [BsonId] 
         [BsonRepresentation(BsonType.String)]

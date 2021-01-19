@@ -10,7 +10,7 @@ using Open.ChannelExtensions;
 
 namespace Catalog.Infrastructure.Persistence.Repositories.Import
 {
-    public class FakeProductsImportSource : IProductsImportSource
+    internal class FakeProductsImportSource : IProductsImportSource
     {
         public IAsyncEnumerable<Product> GetProductsToImport()
         {

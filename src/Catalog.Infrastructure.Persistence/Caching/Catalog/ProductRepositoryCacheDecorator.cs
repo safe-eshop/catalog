@@ -13,7 +13,7 @@ using static LanguageExt.Prelude;
 
 namespace Catalog.Infrastructure.Persistence.Caching.Catalog
 {
-    public class ProductRepositoryCacheDecorator : IProductRepository
+    internal class ProductRepositoryCacheDecorator : IProductRepository
     {
         private readonly IDistributedCache _distributedCache;
         private readonly IProductRepository _productRepository;

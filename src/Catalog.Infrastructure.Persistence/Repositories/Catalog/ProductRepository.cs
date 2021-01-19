@@ -10,7 +10,7 @@ using MongoDB.Driver;
 
 namespace Catalog.Infrastructure.Persistence.Repositories.Catalog
 {
-    public class ProductRepository : IProductRepository
+    internal class ProductRepository : IProductRepository
     {
         private readonly IMongoDatabase _database;
 

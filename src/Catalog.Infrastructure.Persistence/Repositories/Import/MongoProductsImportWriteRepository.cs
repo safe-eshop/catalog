@@ -16,7 +16,7 @@ using static LanguageExt.Prelude;
 
 namespace Catalog.Infrastructure.Persistence.Repositories.Import
 {
-    public class MongoProductsImportWriteRepository : IProductsImportWriteRepository
+    internal class MongoProductsImportWriteRepository : IProductsImportWriteRepository
     {
         private IMongoDatabase _database;
         private readonly ILogger<MongoProductsImportWriteRepository> _logger;

@@ -13,10 +13,10 @@ namespace Catalog.Infrastructure.Persistence.Queries
     {
         public const string ProductsCollectionName = "products";
 
-        public static IMongoCollection<MongoProduct> ProductsCollection(this IMongoDatabase db) =>
+        internal static IMongoCollection<MongoProduct> ProductsCollection(this IMongoDatabase db) =>
             db.GetCollection<MongoProduct>(ProductsCollectionName);
 
-        public static async Task<Option<MongoProduct>> GetProductById(this IMongoCollection<MongoProduct> products,
+        internal static async Task<Option<MongoProduct>> GetProductById(this IMongoCollection<MongoProduct> products,
             ProductId id,
             ShopId shopId)
         {
@@ -26,7 +26,7 @@ namespace Catalog.Infrastructure.Persistence.Queries
             return await find.FirstOrDefaultAsync();
         }
 
-        public static async IAsyncEnumerable<MongoProduct> GetProductByIds(this IMongoCollection<MongoProduct> products,
+        internal static async IAsyncEnumerable<MongoProduct> GetProductByIds(this IMongoCollection<MongoProduct> products,
             IEnumerable<ProductId> ids,
             ShopId shopId)
         {
