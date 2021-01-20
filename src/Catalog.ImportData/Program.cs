@@ -3,6 +3,7 @@ using Catalog.Core.Repository;
 using Catalog.Core.UseCases.Import;
 using Catalog.ImportData.Framework.Logging;
 using Catalog.Infrastructure.Persistence.Extensions;
+using Catalog.Infrastructure.Persistence.Framework.IoC;
 using Catalog.Infrastructure.Persistence.Repositories.Import;
 using Cocona;
 using Microsoft.Extensions.Configuration;
@@ -28,21 +29,7 @@ namespace Catalog.ImportData
                 .UseLogger("Catalog.ImportData")
                 .ConfigureServices((ctx, services) =>
                 {
-                    services.AddTransient<IProductsImportSource, FakeProductsImportSource>();
-                    services.AddTransient<IProductsImportWriteRepository, MongoProductsImportWriteRepository>();
-                    services.AddSingleton<IMongoClient>(sp =>
-                    {
-                        var connectionString = ctx.Configuration.GetConnectionString("Products");
-                        return new MongoClient(new MongoUrl(connectionString));
-                    });
-
-                    services.AddSingleton<IMongoDatabase>(sp =>
-                    {
-                        var client = sp.GetService<IMongoClient>();
-                        var db = client.GetDatabase("Catalog");
-                        db.AddCollections();
-                        return db;
-                    });
+                    services.AddImportInfrastructure(ctx.Configuration);
                     services.AddScoped<FullImportProductsTodayUseCase>();
                 })
                 .ConfigureAppConfiguration(builder =>
