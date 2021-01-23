@@ -5,6 +5,7 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using Catalog.Core.Model;
 using Catalog.Core.Repository;
+using Catalog.Core.Services.Import;
 using Catalog.Infrastructure.Persistence.Mappers;
 using Catalog.Infrastructure.Persistence.Model;
 using Catalog.Infrastructure.Persistence.Queries;
@@ -41,10 +42,15 @@ namespace Catalog.Infrastructure.Persistence.Repositories.Import
 
             await foreach (var res in result.ReadAllAsync(cancellationToken))
             {
-                _logger.LogDebug("Inserted {Result}", res);
+                _logger.LogDebug("Inserted {@Result}", res);
             }
 
             return Right<Exception, Unit>(Unit.Default);
+        }
+
+        public async Task Store(ChannelReader<Product> products, ChannelWriter<Either<ProductImported, ProductImportFailed>> writer, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
         }
     }
 }

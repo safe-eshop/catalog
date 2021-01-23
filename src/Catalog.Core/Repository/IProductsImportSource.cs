@@ -7,6 +7,6 @@ namespace Catalog.Core.Repository
 {
     public interface IProductsImportSource
     {
-        ChannelReader<Product> ProduceProductsToImport(CancellationToken cancellationToken = default);
+        ChannelReader<Product> ProduceProducts(CancellationToken cancellationToken = default);
     }
 }

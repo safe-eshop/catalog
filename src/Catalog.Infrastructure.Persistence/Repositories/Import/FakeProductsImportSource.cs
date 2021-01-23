@@ -56,7 +56,7 @@ namespace Catalog.Infrastructure.Persistence.Repositories.Import
                 await writer.WriteAsync(el, cancellationToken);
             }
         }
-        public ChannelReader<Product> ProduceProductsToImport(CancellationToken cancellationToken = default)
+        public ChannelReader<Product> ProduceProducts(CancellationToken cancellationToken = default)
         {
             var channel = Channel.CreateUnbounded<Product>(new UnboundedChannelOptions() {SingleWriter = true});
             var producer = Produce(channel.Writer, cancellationToken);
