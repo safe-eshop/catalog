@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Catalog.Core.Repository;
 using Microsoft.Extensions.Logging;
@@ -8,14 +10,15 @@ namespace Catalog.Core.UseCases.Import
     public class FullImportProductsTodayUseCase
     {
         private IProductsImportSource _source;
-        private IProductsImportWriteRepository _importWriteRepository;
+        private IEnumerable<IProductsImportWriteRepository> _importWriteRepositories;
         private ILogger<FullImportProductsTodayUseCase> _logger;
 
         public FullImportProductsTodayUseCase(IProductsImportSource source,
-            IProductsImportWriteRepository importWriteRepository, ILogger<FullImportProductsTodayUseCase> logger)
+            IEnumerable<IProductsImportWriteRepository> importWriteRepository,
+            ILogger<FullImportProductsTodayUseCase> logger)
         {
             _source = source;
-            _importWriteRepository = importWriteRepository;
+            _importWriteRepositories = importWriteRepository;
             _logger = logger;
         }
 
@@ -25,8 +28,10 @@ namespace Catalog.Core.UseCases.Import
             var res = _source
                 .ProduceProductsToImport(cancellationToken);
 
-            await _importWriteRepository.Store(res, cancellationToken);
-            
+            var consumers = _importWriteRepositories.Select(async repo => await repo.Store(res, cancellationToken));
+
+            await Task.WhenAll(consumers);
+
             _logger.LogInformation("Finish Import Today");
         }
     }
