@@ -3,6 +3,7 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using Catalog.Core.Repository;
 using Catalog.Core.Services.Import;
+using Catalog.Core.Services.Import.Abstractions;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
 
@@ -10,12 +11,12 @@ namespace Catalog.Core.UseCases.Import
 {
     public class FullImportProductsTodayUseCase
     {
-        private readonly IProductsImportSource _source;
+        private readonly IProductsProducer _source;
         private readonly IProductWriter _writer;
         private readonly IProductsImportStatusNotifier _notifier;
         private readonly ILogger<FullImportProductsTodayUseCase> _logger;
 
-        public FullImportProductsTodayUseCase(IProductsImportSource source,
+        public FullImportProductsTodayUseCase(IProductsProducer source,
             IProductWriter writer,
             ILogger<FullImportProductsTodayUseCase> logger, IProductsImportStatusNotifier notifier)
         {

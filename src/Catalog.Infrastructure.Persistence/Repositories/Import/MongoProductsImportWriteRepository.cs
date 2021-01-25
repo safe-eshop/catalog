@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Catalog.Core.Model;
 using Catalog.Core.Repository;
 using Catalog.Core.Services.Import;
+using Catalog.Core.Services.Import.Abstractions;
 using Catalog.Infrastructure.Persistence.Mappers;
 using Catalog.Infrastructure.Persistence.Model;
 using Catalog.Infrastructure.Persistence.Queries;

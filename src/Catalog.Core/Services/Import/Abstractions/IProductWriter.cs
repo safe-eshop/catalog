@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Channels;
 using Catalog.Core.Model;
 using LanguageExt;
 
-namespace Catalog.Core.Services.Import
+namespace Catalog.Core.Services.Import.Abstractions
 {
     public interface IProductWriter
     {

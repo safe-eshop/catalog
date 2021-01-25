@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Channels;
 using Catalog.Core.Model;
 
-namespace Catalog.Core.Repository
+namespace Catalog.Core.Services.Import.Abstractions
 {
-    public interface IProductsImportSource
+    public interface IProductsProducer
     {
         ChannelReader<Product> ProduceProducts(CancellationToken cancellationToken = default);
     }

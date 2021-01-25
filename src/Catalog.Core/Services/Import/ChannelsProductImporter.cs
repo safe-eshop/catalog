@@ -6,6 +6,7 @@ using Catalog.Core.Repository;
 using LanguageExt;
 using System.Linq;
 using System.Threading.Tasks;
+using Catalog.Core.Services.Import.Abstractions;
 using Open.ChannelExtensions;
 
 namespace Catalog.Core.Services.Import

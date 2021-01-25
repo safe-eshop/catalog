@@ -42,7 +42,7 @@ namespace Catalog.Infrastructure.Persistence.Framework.IoC
         
         private static void AddImportRepositories(this IServiceCollection services)
         {
-            services.AddTransient<IProductsImportSource, FakeProductsImportSource>();
+            services.AddTransient<IProductsProvider, FakeProductsProvider>();
             services.AddTransient<IProductsImportWriteRepository, MongoProductsImportWriteRepository>();
         }
         

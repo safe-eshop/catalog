@@ -10,7 +10,7 @@ using Open.ChannelExtensions;
 
 namespace Catalog.Infrastructure.Persistence.Repositories.Import
 {
-    internal class FakeProductsImportSource : IProductsImportSource
+    internal class FakeProductsProvider : IProductsProvider
     {
         public IAsyncEnumerable<Product> GetProductsToImport()
         {
@@ -40,34 +40,17 @@ namespace Catalog.Infrastructure.Persistence.Repositories.Import
         }
 
         private static Tags GenerateTags(IEnumerable<string> tags) => new(tags.Select(x => new Tag(x)));
-
-        private async Task Produce(ChannelWriter<Product> writer, CancellationToken cancellationToken = default)
+        
+        public IAsyncEnumerable<Product> ProduceProducts(CancellationToken cancellationToken = default)
         {
-            var list = Enumerable.Range(0, 100)
+            return Enumerable.Range(0, 100)
                 .Select(id => (id, Enumerable.Range(0, 200)))
                 .Select(x =>
                 {
                     var (id, shopNums) = x;
                     return Generate(new ProductId(id), shopNums.Select(shopId => new ShopId(shopId)).ToList());
-                }).SelectMany(x => x);
-
-            foreach (var el in list)
-            {
-                await writer.WriteAsync(el, cancellationToken);
-            }
-        }
-        public ChannelReader<Product> ProduceProducts(CancellationToken cancellationToken = default)
-        {
-            var channel = Channel.CreateUnbounded<Product>(new UnboundedChannelOptions() {SingleWriter = true});
-            var producer = Produce(channel.Writer, cancellationToken);
-            
-            Task.Run(async () =>
-            {
-                await producer;
-                await channel.CompleteAsync();
-            }, cancellationToken);
-
-            return channel;
+                }).SelectMany(x => x)
+                .ToAsyncEnumerable();
         }
     }
 }
