@@ -23,6 +23,12 @@ namespace Catalog.Core.Model
     public record Tags(IEnumerable<Tag> Value)
     {
         public IEnumerable<string> GetTags() => Value.Select(tag => tag.Value).ToList();
+
+        public static Tags From(IEnumerable<string> tags)
+        {
+            return new(tags.Select(tag => new Tag(tag)));
+        }
+        
     }
 
     public record Price(decimal Regular, decimal? Promotional)

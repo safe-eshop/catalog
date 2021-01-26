@@ -12,16 +12,6 @@ namespace Catalog.Infrastructure.Persistence.Repositories.Import
 {
     internal class FakeProductsProvider : IProductsProvider
     {
-        public IAsyncEnumerable<Product> GetProductsToImport()
-        {
-            return Enumerable.Range(0, 100)
-                .Select(id => (id, Enumerable.Range(0, 200)))
-                .Select(x =>
-                {
-                    var (id, shopNums) = x;
-                    return Generate(new ProductId(id), shopNums.Select(shopId => new ShopId(shopId)).ToList());
-                }).SelectMany(x => x).ToAsyncEnumerable();
-        }
 
         private static IEnumerable<Product> Generate(ProductId productId, IEnumerable<ShopId> shopIds)
         {
@@ -35,12 +25,10 @@ namespace Catalog.Infrastructure.Persistence.Repositories.Import
             {
                 var slug = Product.GenerateSlug(productId, shopId);
                 return new Product(productId, shopId, slug, desc, new Price(decimal.Parse(faker.Commerce.Price(100)),
-                    faker.Random.Bool() ? (decimal?) null : decimal.Parse(faker.Commerce.Price(1, 99))), details, GenerateTags(tags));
+                    faker.Random.Bool() ? (decimal?) null : decimal.Parse(faker.Commerce.Price(1, 99))), details, Tags.From(tags));
             });
         }
 
-        private static Tags GenerateTags(IEnumerable<string> tags) => new(tags.Select(x => new Tag(x)));
-        
         public IAsyncEnumerable<Product> ProduceProducts(CancellationToken cancellationToken = default)
         {
             return Enumerable.Range(0, 100)
