@@ -16,6 +16,6 @@ namespace Catalog.Core.Services.Import.Abstractions
     
     public interface IProductsImportStatusNotifier
     {
-        Task Notify(Either<ProductImported, ProductImportFailed> importStatus);
+        Task Notify(Either<ProductImportFailed, ProductImported> importStatus);
     }
 }

@@ -49,7 +49,7 @@ namespace Catalog.Infrastructure.Persistence.Repositories.Import
             return Right<Exception, Unit>(Unit.Default);
         }
 
-        public async Task Store(ChannelReader<Product> products, ChannelWriter<Either<ProductImported, ProductImportFailed>> writer, CancellationToken cancellationToken = default)
+        public async Task<Either<ProductImportFailed, ProductImported>> Store(Product product, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

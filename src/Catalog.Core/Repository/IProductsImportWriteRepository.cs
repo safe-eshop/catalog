@@ -11,7 +11,7 @@ namespace Catalog.Core.Repository
 {
     public interface IProductsImportWriteRepository
     {
-        Task Store(ChannelReader<Product> products, ChannelWriter<Either<ProductImported, ProductImportFailed>> writer,
+        Task<Either<ProductImportFailed, ProductImported>> Store(Product product,
             CancellationToken cancellationToken = default);
     }
 }

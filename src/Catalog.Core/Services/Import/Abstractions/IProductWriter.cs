@@ -7,7 +7,7 @@ namespace Catalog.Core.Services.Import.Abstractions
 {
     public interface IProductWriter
     {
-        ChannelReader<Either<ProductImported, ProductImportFailed>> Write(ChannelReader<Product> products,
+        ChannelReader<Either<ProductImportFailed, ProductImported>> Write(ChannelReader<Product> products,
             CancellationToken cancellationToken = default);
     }
 }

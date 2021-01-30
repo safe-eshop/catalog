@@ -40,7 +40,7 @@ namespace Catalog.Core.UseCases.Import
             _logger.LogInformation("Finish Import Today");
         }
 
-        private async Task Notify(ChannelReader<Either<ProductImported, ProductImportFailed>> reader, CancellationToken cancellationToken)
+        private async Task Notify(ChannelReader<Either<ProductImportFailed, ProductImported>> reader, CancellationToken cancellationToken)
         {
             await foreach (var res in reader.ReadAllAsync(cancellationToken))
             {
