@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,15 +21,24 @@ namespace Catalog.Core.Model
         public static implicit operator string(Tag tag) => tag.Value;
     }
 
-    public record Tags(IEnumerable<Tag> Value)
+    public record Tags(IList<Tag> Value) : IEnumerable<Tag>
     {
         public IEnumerable<string> GetTags() => Value.Select(tag => tag.Value).ToList();
 
         public static Tags From(IEnumerable<string> tags)
         {
-            return new(tags.Select(tag => new Tag(tag)));
+            return new(tags.Select(tag => new Tag(tag)).ToList());
         }
-        
+
+        public IEnumerator<Tag> GetEnumerator()
+        {
+            return Value.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 
     public record Price(decimal Regular, decimal? Promotional)

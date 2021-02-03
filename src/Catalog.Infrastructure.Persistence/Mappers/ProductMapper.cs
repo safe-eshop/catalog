@@ -27,7 +27,7 @@ namespace Catalog.Infrastructure.Persistence.Mappers
             return new Product(new ProductId(product.Id), new ShopId(product.ShopId), product.Slug,
                 ToProductDescription(product.Description), ToProductPrice(product.Price),
                 ToProductDetails(product.Details),
-                new Tags(product.Tags.Select(x => new Tag(x))));
+                new Tags(product.Tags.Select(x => new Tag(x)).ToList()));
         }
     }
 }
