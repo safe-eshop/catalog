@@ -1,13 +1,48 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"catalog/core/services"
+	infra "catalog/infrastructure/services"
+	"net/http"
+	"strconv"
+
+	"github.com/gin-gonic/gin"
+)
+
+type Catalog struct {
+	ProductService services.ProductService
+}
+
+func CreateCatalog() Catalog {
+	return Catalog{ProductService: infra.NewProductService()}
+}
+
+func StartCatalog(g *gin.Engine, catalog Catalog) {
+	g.GET("/products/:id", func(c *gin.Context) {
+		idStr := c.Param("id")
+		id, err := strconv.Atoi(idStr)
+
+		if err != nil {
+			c.Error(err)
+			c.String(http.StatusBadRequest, "bad request")
+			return
+		}
+		result, err := catalog.ProductService.GetById(id)
+
+		if err != nil {
+			c.Error(err)
+			c.String(http.StatusInternalServerError, "unknown error")
+			return
+		}
+		c.JSON(200, gin.H{
+			"id": result.ID,
+		})
+	})
+}
 
 func main() {
 	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	catalog := CreateCatalog()
+	StartCatalog(r, catalog)
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
