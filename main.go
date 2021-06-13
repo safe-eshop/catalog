@@ -2,7 +2,7 @@ package main
 
 import (
 	"catalog/core/services"
-	infra "catalog/infrastructure/services"
+	"catalog/infrastructure/repositories"
 	"net/http"
 	"strconv"
 
@@ -14,7 +14,7 @@ type Catalog struct {
 }
 
 func CreateCatalog() Catalog {
-	return Catalog{ProductService: infra.NewProductService()}
+	return Catalog{ProductService: services.NewProductService(repositories.NewProductRepository())}
 }
 
 func StartCatalog(g *gin.Engine, catalog Catalog) {
