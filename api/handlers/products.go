@@ -2,7 +2,9 @@ package handlers
 
 import (
 	"catalog/core/services"
+	"catalog/infrastructure/mongodb"
 	"catalog/infrastructure/repositories"
+	"context"
 	"net/http"
 	"strconv"
 
@@ -13,12 +15,12 @@ type catalogHandler struct {
 	ProductService services.ProductService
 }
 
-func createCatalog() catalogHandler {
-	return catalogHandler{ProductService: services.NewProductService(repositories.NewProductRepository())}
+func createCatalog(ctx context.Context) catalogHandler {
+	return catalogHandler{ProductService: services.NewProductService(repositories.NewProductRepository(mongodb.NewClient("xD", ctx)))}
 }
 
 func StartCatalog(g *gin.Engine) {
-	catalog := createCatalog()
+	catalog := createCatalog(context.TODO())
 	g.GET("/products/:id", func(c *gin.Context) {
 		idStr := c.Param("id")
 		id, err := strconv.Atoi(idStr)
@@ -28,7 +30,7 @@ func StartCatalog(g *gin.Engine) {
 			c.String(http.StatusBadRequest, "bad request")
 			return
 		}
-		result, err := catalog.ProductService.GetById(id)
+		result, err := catalog.ProductService.GetById(id, c.Request.Context())
 
 		if err != nil {
 			c.Error(err)

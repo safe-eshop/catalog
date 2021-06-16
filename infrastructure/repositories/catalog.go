@@ -3,16 +3,23 @@ package repositories
 import (
 	"catalog/core/model"
 	"catalog/core/repositories"
-	"errors"
+	"context"
+
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type fakeRepo struct {
+const ProductsCollectionName = "products"
+
+type mongoRepo struct {
+	client *mongo.Client
+	db     *mongo.Database
 }
 
-func (repo fakeRepo) GetById(id model.ProductId) (*model.Product, error) {
-	return nil, errors.New("xD")
+func (repo mongoRepo) GetById(id model.ProductId, ctx context.Context) (*model.Product, error) {
+	col := repo.db.Collection(ProductsCollectionName)
+	col.FindOne(id)
 }
 
-func NewProductRepository() repositories.ProductRepository {
-	return fakeRepo{}
+func NewProductRepository(client *mongo.Client) repositories.ProductRepository {
+	return mongoRepo{client: client}
 }
