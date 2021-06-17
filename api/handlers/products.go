@@ -30,11 +30,16 @@ func StartCatalog(g *gin.Engine) {
 			c.String(http.StatusBadRequest, "bad request")
 			return
 		}
-		result, err := catalog.ProductService.GetById(id, c.Request.Context())
+		result, err := catalog.ProductService.GetById(c.Request.Context(), id)
 
 		if err != nil {
 			c.Error(err)
 			c.String(http.StatusInternalServerError, "unknown error")
+			return
+		}
+
+		if result == nil {
+			c.Status(404)
 			return
 		}
 		c.JSON(200, gin.H{

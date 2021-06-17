@@ -3,8 +3,10 @@ package repositories
 import (
 	"catalog/core/model"
 	"catalog/core/repositories"
+	inframodel "catalog/infrastructure/model"
 	"context"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -15,9 +17,18 @@ type mongoRepo struct {
 	db     *mongo.Database
 }
 
-func (repo mongoRepo) GetById(id model.ProductId, ctx context.Context) (*model.Product, error) {
+func (repo mongoRepo) GetById(ctx context.Context, id model.ProductId) (*model.Product, error) {
 	col := repo.db.Collection(ProductsCollectionName)
-	col.FindOne(id)
+	filter := bson.D{{"_id", id}}
+	var result inframodel.MongoProduct
+	err := col.FindOne(ctx, filter).Decode(&result)
+	if err == mongo.ErrNoDocuments {
+		return nil, nil
+	} else if err != nil {
+		return nil, err
+	}
+
+	return result.ToProduct(), nil
 }
 
 func NewProductRepository(client *mongo.Client) repositories.ProductRepository {

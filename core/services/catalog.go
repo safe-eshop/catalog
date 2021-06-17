@@ -8,17 +8,20 @@ import (
 )
 
 type ProductService interface {
-	GetById(id model.ProductId, ctx context.Context) (*dto.ProductDto, error)
+	GetById(ctx context.Context, id model.ProductId) (*dto.ProductDto, error)
 }
 
 type productService struct {
 	repo repositories.ProductRepository
 }
 
-func (ps productService) GetById(id model.ProductId, ctx context.Context) (*dto.ProductDto, error) {
-	repoRes, err := ps.repo.GetById(id, ctx)
+func (ps productService) GetById(ctx context.Context, id model.ProductId) (*dto.ProductDto, error) {
+	repoRes, err := ps.repo.GetById(ctx, id)
 	if err != nil {
 		return nil, err
+	}
+	if repoRes == nil {
+		return nil, nil
 	}
 	return dto.MapToProductDto(repoRes), nil
 }

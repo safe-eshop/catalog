@@ -6,5 +6,5 @@ import (
 )
 
 type ProductRepository interface {
-	GetById(id model.ProductId, ctx context.Context) (*model.Product, error)
+	GetById(ctx context.Context, id model.ProductId) (*model.Product, error)
 }
