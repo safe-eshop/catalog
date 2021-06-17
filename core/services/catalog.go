@@ -11,6 +11,10 @@ type ProductService interface {
 	GetById(ctx context.Context, id model.ProductId) (*dto.ProductDto, error)
 }
 
+type ProductImportService interface {
+	ProduceProducts(ctx context.Context) error
+}
+
 type productService struct {
 	repo repositories.ProductRepository
 }
