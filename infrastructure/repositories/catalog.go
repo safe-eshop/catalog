@@ -31,6 +31,13 @@ func (repo mongoRepo) GetById(ctx context.Context, id model.ProductId) (*model.P
 	return result.ToProduct(), nil
 }
 
+func (repo mongoRepo) Insert(ctx context.Context, products model.Products) error {
+	col := repo.db.Collection(ProductsCollectionName)
+	dbProducts := inframodel.NewMongoProducts(products)
+	_, err := col.InsertMany(ctx, inframodel.ToInterfaceSlice(dbProducts))
+	return err
+}
+
 func NewProductRepository(client *mongo.Client) repositories.ProductRepository {
 	return mongoRepo{client: client}
 }
