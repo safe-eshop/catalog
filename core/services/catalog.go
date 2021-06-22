@@ -12,7 +12,8 @@ type ProductService interface {
 }
 
 type ProductImportService interface {
-	ProduceProducts(ctx context.Context) error
+	ProduceProducts(ctx context.Context) chan dto.ProductDto
+	InsertProduct(product dto.ProductDto) error
 }
 
 type productService struct {

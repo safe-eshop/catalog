@@ -31,10 +31,10 @@ func (repo mongoRepo) GetById(ctx context.Context, id model.ProductId) (*model.P
 	return result.ToProduct(), nil
 }
 
-func (repo mongoRepo) Insert(ctx context.Context, products model.Products) error {
+func (repo mongoRepo) Insert(ctx context.Context, product model.Product) error {
 	col := repo.db.Collection(ProductsCollectionName)
-	dbProducts := inframodel.NewMongoProducts(products)
-	_, err := col.InsertMany(ctx, inframodel.ToInterfaceSlice(dbProducts))
+	dbProduct := inframodel.NewMongoProduct(product)
+	_, err := col.InsertOne(ctx, dbProduct)
 	return err
 }
 
