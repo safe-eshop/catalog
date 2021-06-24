@@ -8,7 +8,7 @@ import (
 
 type ProductImportService interface {
 	ProduceProducts(ctx context.Context) chan dto.ProductDto
-	InsertProduct(product dto.ProductDto) error
+	InsertProduct(ctx context.Context, product dto.ProductDto) error
 }
 
 type productImportService struct {
@@ -16,11 +16,17 @@ type productImportService struct {
 }
 
 func (service productImportService) ProduceProducts(ctx context.Context) chan dto.ProductDto {
-	return make(chan dto.ProductDto)
+	stream := make(chan dto.ProductDto)
+
+	go func(ctx context.Context, ch chan dto.ProductDto) {
+
+	}(ctx, stream)
+
+	return stream
 }
 
-func (service productImportService) InsertProduct(product dto.ProductDto) error {
-	return nil
+func (service productImportService) InsertProduct(ctx context.Context, product dto.ProductDto) error {
+	return service.repo.Insert(ctx, dto.NewProduct(product))
 }
 
 func NewProductImportService(repo repositories.ProductRepository) ProductImportService {

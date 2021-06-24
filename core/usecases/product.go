@@ -19,7 +19,7 @@ type productImportUseCase struct {
 
 func (uc *productImportUseCase) insertProduct(ctx context.Context, product dto.ProductDto, wg *sync.WaitGroup) {
 	defer wg.Done()
-	err := uc.service.InsertProduct(product)
+	err := uc.service.InsertProduct(ctx, product)
 	if err != nil {
 		log.WithError(err).Fatalln("Error during product insertion")
 	}

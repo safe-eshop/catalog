@@ -9,3 +9,7 @@ type ProductDto struct {
 func MapToProductDto(product *model.Product) *ProductDto {
 	return &ProductDto{}
 }
+
+func NewProduct(dto ProductDto) model.Product {
+	return model.Product{}
+}
