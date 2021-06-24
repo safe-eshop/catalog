@@ -22,7 +22,7 @@ func (service productImportService) ProduceProducts(ctx context.Context) chan dt
 
 	go func(ctx context.Context, ch chan dto.ProductDto) {
 		for i := 0; i < 20; i++ {
-			ch <- dto.ProductDto{ID: i, Name: gofakeit.()}
+			ch <- dto.ProductDto{ID: i, Name: gofakeit.Name()}
 		}
 	}(ctx, stream)
 
