@@ -35,3 +35,7 @@ func (uc productImportUseCase) Execute(ctx context.Context) error {
 	wg.Wait()
 	return nil
 }
+
+func NewProductImportUseCase(service services.ProductImportService) ProductImportUseCase {
+	return productImportUseCase{service: service}
+}
