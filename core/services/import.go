@@ -4,6 +4,8 @@ import (
 	"catalog/core/dto"
 	"catalog/core/repositories"
 	"context"
+
+	"github.com/brianvoe/gofakeit/v6"
 )
 
 type ProductImportService interface {
@@ -19,7 +21,9 @@ func (service productImportService) ProduceProducts(ctx context.Context) chan dt
 	stream := make(chan dto.ProductDto)
 
 	go func(ctx context.Context, ch chan dto.ProductDto) {
-
+		for i := 0; i < 20; i++ {
+			ch <- dto.ProductDto{ID: i, Name: gofakeit.()}
+		}
 	}(ctx, stream)
 
 	return stream
