@@ -11,11 +11,6 @@ type ProductService interface {
 	GetById(ctx context.Context, id model.ProductId) (*dto.ProductDto, error)
 }
 
-type ProductImportService interface {
-	ProduceProducts(ctx context.Context) chan dto.ProductDto
-	InsertProduct(product dto.ProductDto) error
-}
-
 type productService struct {
 	repo repositories.ProductRepository
 }
