@@ -8,9 +8,11 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 const ProductsCollectionName = "products"
+const CatalogDatabase = "catalog"
 
 type mongoRepo struct {
 	client *mongo.Client
@@ -18,7 +20,7 @@ type mongoRepo struct {
 }
 
 func (repo mongoRepo) GetById(ctx context.Context, id model.ProductId) (*model.Product, error) {
-	col := repo.db.Collection(ProductsCollectionName)
+	col := repo.db.Collection(ProductsCollectionName, &options.CollectionOptions{})
 	filter := bson.D{{"_id", id}}
 	var result inframodel.MongoProduct
 	err := col.FindOne(ctx, filter).Decode(&result)
@@ -39,5 +41,6 @@ func (repo mongoRepo) Insert(ctx context.Context, product model.Product) error {
 }
 
 func NewProductRepository(client *mongo.Client) repositories.ProductRepository {
-	return mongoRepo{client: client}
+	db := client.Database(CatalogDatabase)
+	return mongoRepo{client: client, db: db}
 }

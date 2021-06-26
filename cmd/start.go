@@ -18,8 +18,11 @@ func createProductImportUseCase(ctx context.Context) usecases.ProductImportUseCa
 func main() {
 	ctx := context.TODO()
 	usecase := createProductImportUseCase(ctx)
+	log.Info("Start import")
 	err := usecase.Execute(ctx)
 	if err != nil {
 		log.WithError(err).Fatalln("Import error")
+		return
 	}
+	log.Info("Finish import")
 }

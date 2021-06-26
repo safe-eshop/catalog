@@ -21,9 +21,10 @@ func (service productImportService) ProduceProducts(ctx context.Context) chan dt
 	stream := make(chan dto.ProductDto)
 
 	go func(ctx context.Context, ch chan dto.ProductDto) {
-		for i := 0; i < 20; i++ {
+		for i := 1; i < 20; i++ {
 			ch <- dto.ProductDto{ID: i, Name: gofakeit.Name()}
 		}
+		close(stream)
 	}(ctx, stream)
 
 	return stream

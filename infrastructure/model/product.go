@@ -3,11 +3,12 @@ package model
 import "catalog/core/model"
 
 type MongoProduct struct {
-	ProductID int `json:"_id,omitempty" bson:"_id,omitempty"`
+	ProductID int    `json:"_id,omitempty" bson:"_id,omitempty"`
+	Name      string `json:"name,omitempty" bson:"name,omitempty"`
 }
 
 func NewMongoProduct(product model.Product) MongoProduct {
-	return MongoProduct{}
+	return MongoProduct{ProductID: product.ID, Name: product.Name}
 }
 func NewMongoProducts(products []model.Product) []MongoProduct {
 	result := make([]MongoProduct, len(products))
