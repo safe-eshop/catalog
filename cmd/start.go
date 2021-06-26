@@ -1,4 +1,4 @@
-package cmd
+package main
 
 import (
 	"catalog/core/services"
