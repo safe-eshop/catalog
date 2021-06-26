@@ -3,8 +3,8 @@ package dto
 import "catalog/core/model"
 
 type ProductDto struct {
-	ID   model.ProductId
-	Name string
+	ID   model.ProductId `json:"id,omitempty"`
+	Name string          `json:"name,omitempty"`
 }
 
 func MapToProductDto(product *model.Product) *ProductDto {

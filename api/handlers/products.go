@@ -16,7 +16,7 @@ type catalogHandler struct {
 }
 
 func createCatalog(ctx context.Context) catalogHandler {
-	return catalogHandler{ProductService: services.NewProductService(repositories.NewProductRepository(mongodb.NewClient("xD", ctx)))}
+	return catalogHandler{ProductService: services.NewProductService(repositories.NewProductRepository(mongodb.NewClient("mongodb://localhost:27017", ctx)))}
 }
 
 func StartCatalog(g *gin.Engine) {
@@ -43,7 +43,8 @@ func StartCatalog(g *gin.Engine) {
 			return
 		}
 		c.JSON(200, gin.H{
-			"id": result.ID,
+			"id":   result.ID,
+			"name": result.Name,
 		})
 	})
 }

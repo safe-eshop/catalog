@@ -19,7 +19,7 @@ func NewMongoProducts(products []model.Product) []MongoProduct {
 }
 
 func (p *MongoProduct) ToProduct() *model.Product {
-	return &model.Product{}
+	return &model.Product{ID: p.ProductID, Name: p.Name}
 }
 
 func ToInterfaceSlice(ss []MongoProduct) []interface{} {
