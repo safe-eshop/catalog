@@ -3,12 +3,16 @@ package model
 import "catalog/core/model"
 
 type MongoProduct struct {
-	ProductID int    `json:"_id,omitempty" bson:"_id,omitempty"`
-	Name      string `json:"name,omitempty" bson:"name,omitempty"`
+	ProductID      int      `json:"_id,omitempty" bson:"_id,omitempty"`
+	Name           string   `json:"name,omitempty" bson:"name,omitempty"`
+	Brand          string   `json:"brand,omitempty" bson:"brand,omitempty"`
+	Description    string   `json:"description,omitempty" bson:"description,omitempty"`
+	Price          float64  `json:"price,omitempty" bson:"price,omitempty"`
+	PromotionPrice *float64 `json:"promotionPrice,omitempty" bson:"promotionPrice,omitempty"`
 }
 
 func NewMongoProduct(product model.Product) MongoProduct {
-	return MongoProduct{ProductID: product.ID, Name: product.Name}
+	return MongoProduct{ProductID: product.ID, Name: product.Name, Brand: product.Brand, Description: product.Description, Price: product.Price, PromotionPrice: product.PromotionPrice}
 }
 func NewMongoProducts(products []model.Product) []MongoProduct {
 	result := make([]MongoProduct, len(products))
@@ -19,7 +23,7 @@ func NewMongoProducts(products []model.Product) []MongoProduct {
 }
 
 func (p *MongoProduct) ToProduct() *model.Product {
-	return &model.Product{ID: p.ProductID, Name: p.Name}
+	return &model.Product{ID: p.ProductID, Name: p.Name, Brand: p.Brand, Description: p.Description, Price: p.Price, PromotionPrice: p.PromotionPrice}
 }
 
 func ToInterfaceSlice(ss []MongoProduct) []interface{} {

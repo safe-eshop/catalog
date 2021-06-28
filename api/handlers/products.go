@@ -43,8 +43,11 @@ func StartCatalog(g *gin.Engine) {
 			return
 		}
 		c.JSON(200, gin.H{
-			"id":   result.ID,
-			"name": result.Name,
+			"id":             result.ID,
+			"name":           result.Name,
+			"brand":          result.Brand,
+			"price":          result.Price,
+			"promotionPrice": result.PromotionPrice,
 		})
 	})
 }
