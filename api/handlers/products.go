@@ -50,4 +50,34 @@ func StartCatalog(g *gin.Engine) {
 			"promotionPrice": result.PromotionPrice,
 		})
 	})
+
+	g.GET("/products", func(c *gin.Context) {
+		idsStr := c.QueryArray("ids")
+		id, err := strconv.Atoi(idStr)
+
+		if err != nil {
+			c.Error(err)
+			c.String(http.StatusBadRequest, "bad request")
+			return
+		}
+		result, err := catalog.ProductService.GetById(c.Request.Context(), id)
+
+		if err != nil {
+			c.Error(err)
+			c.String(http.StatusInternalServerError, "unknown error")
+			return
+		}
+
+		if result == nil {
+			c.Status(404)
+			return
+		}
+		c.JSON(200, gin.H{
+			"id":             result.ID,
+			"name":           result.Name,
+			"brand":          result.Brand,
+			"price":          result.Price,
+			"promotionPrice": result.PromotionPrice,
+		})
+	})
 }
