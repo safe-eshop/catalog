@@ -11,6 +11,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func parseInt(idsStr []string) []int {
+	res := make([]int, len(idsStr))
+	for i, v := range idsStr {
+		id, _ := strconv.Atoi(v)
+		res[i] = id
+	}
+	return res
+}
+
 type catalogHandler struct {
 	ProductService services.ProductService
 }
@@ -42,25 +51,14 @@ func StartCatalog(g *gin.Engine) {
 			c.Status(404)
 			return
 		}
-		c.JSON(200, gin.H{
-			"id":             result.ID,
-			"name":           result.Name,
-			"brand":          result.Brand,
-			"price":          result.Price,
-			"promotionPrice": result.PromotionPrice,
-		})
+		c.JSON(200, result)
 	})
 
 	g.GET("/products", func(c *gin.Context) {
 		idsStr := c.QueryArray("ids")
-		id, err := strconv.Atoi(idStr)
+		ids := parseInt(idsStr)
 
-		if err != nil {
-			c.Error(err)
-			c.String(http.StatusBadRequest, "bad request")
-			return
-		}
-		result, err := catalog.ProductService.GetById(c.Request.Context(), id)
+		result, err := catalog.ProductService.GetByIds(c.Request.Context(), ids)
 
 		if err != nil {
 			c.Error(err)
@@ -72,12 +70,7 @@ func StartCatalog(g *gin.Engine) {
 			c.Status(404)
 			return
 		}
-		c.JSON(200, gin.H{
-			"id":             result.ID,
-			"name":           result.Name,
-			"brand":          result.Brand,
-			"price":          result.Price,
-			"promotionPrice": result.PromotionPrice,
-		})
+
+		c.JSON(200, result)
 	})
 }
