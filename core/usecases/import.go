@@ -15,6 +15,7 @@ type ProductImportUseCase interface {
 
 type productImportUseCase struct {
 	service services.ProductImportService
+	bus     services.MessageBus
 }
 
 func (uc *productImportUseCase) insertProduct(ctx context.Context, product dto.ProductDto, wg *sync.WaitGroup) {
@@ -23,6 +24,11 @@ func (uc *productImportUseCase) insertProduct(ctx context.Context, product dto.P
 	if err != nil {
 		log.WithError(err).Fatalln("Error during product insertion")
 	}
+	err = uc.bus.Publish(ctx, services.NewProductCreated(product))
+	if err != nil {
+		log.WithError(err).Fatalln("Message publisher error")
+	}
+
 }
 
 func (uc productImportUseCase) Execute(ctx context.Context) error {
