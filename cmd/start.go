@@ -5,6 +5,7 @@ import (
 	"catalog/core/usecases"
 	"catalog/infrastructure/mongodb"
 	"catalog/infrastructure/repositories"
+	infservices "catalog/infrastructure/services"
 	"context"
 
 	log "github.com/sirupsen/logrus"
@@ -12,7 +13,8 @@ import (
 
 func createProductImportUseCase(ctx context.Context) usecases.ProductImportUseCase {
 	service := services.NewProductImportService(repositories.NewProductRepository(mongodb.NewClient("mongodb://localhost:27017", ctx)))
-	return usecases.NewProductImportUseCase(service)
+	bus := infservices.NewMessageBus()
+	return usecases.NewProductImportUseCase(service, bus)
 }
 
 func main() {

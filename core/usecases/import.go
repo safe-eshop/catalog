@@ -42,6 +42,6 @@ func (uc productImportUseCase) Execute(ctx context.Context) error {
 	return nil
 }
 
-func NewProductImportUseCase(service services.ProductImportService) ProductImportUseCase {
-	return productImportUseCase{service: service}
+func NewProductImportUseCase(service services.ProductImportService, bus services.MessageBus) ProductImportUseCase {
+	return productImportUseCase{service: service, bus: bus}
 }
