@@ -42,6 +42,6 @@ func (service productImportService) InsertProduct(ctx context.Context, product d
 	return service.repo.Insert(ctx, dto.NewProduct(product))
 }
 
-func NewProductImportService(repo repositories.ProductRepository) ProductImportService {
+func NewProductImportService(repo repositories.ProductRepository) productImportService {
 	return productImportService{repo: repo}
 }

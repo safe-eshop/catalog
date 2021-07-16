@@ -42,6 +42,6 @@ func (ps productService) GetByIds(ctx context.Context, ids []model.ProductId) ([
 	return res, nil
 }
 
-func NewProductService(repo repositories.ProductRepository) ProductService {
+func NewProductService(repo repositories.ProductRepository) productService {
 	return productService{repo: repo}
 }

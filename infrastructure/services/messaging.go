@@ -12,6 +12,6 @@ func (b fakeBus) Publish(ctx context.Context, p services.ProductCreated) error {
 	return nil
 }
 
-func NewMessageBus() services.MessageBus {
+func NewMessageBus() fakeBus {
 	return fakeBus{}
 }

@@ -2,7 +2,6 @@ package repositories
 
 import (
 	"catalog/core/model"
-	"catalog/core/repositories"
 	inframodel "catalog/infrastructure/model"
 	"context"
 
@@ -64,7 +63,7 @@ func (repo mongoRepo) Insert(ctx context.Context, product model.Product) error {
 	return err
 }
 
-func NewProductRepository(client *mongo.Client) repositories.ProductRepository {
+func NewProductRepository(client *mongo.Client) mongoRepo {
 	db := client.Database(CatalogDatabase)
 	return mongoRepo{client: client, db: db}
 }
