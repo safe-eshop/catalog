@@ -1,1 +1,0 @@
-GET http://localhost:8080/api/products?page=2 HTTP/1.1

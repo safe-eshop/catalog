@@ -1,9 +1,7 @@
-FROM golang:latest AS builder
+FROM golang:1.16 AS builder
 ADD . /app/backend
 WORKDIR /app/backend
-RUN go mod download
-RUN go get -u github.com/gin-gonic/gin
-RUN go get github.com/google/uuid
+RUN go test ./...
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o /main .
 
 # final stage
@@ -12,4 +10,3 @@ RUN apk --no-cache add ca-certificates
 COPY --from=builder /main ./
 RUN chmod +x ./main
 ENTRYPOINT ["./main"]
-EXPOSE 8080
