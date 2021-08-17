@@ -7,12 +7,22 @@ import (
 	"catalog/infrastructure/repositories"
 	infservices "catalog/infrastructure/services"
 	"context"
+	"os"
 
 	log "github.com/sirupsen/logrus"
 )
 
+func getEnvVarOrDefault(env, def string) string {
+	envVar := os.Getenv(env)
+	if envVar == "" {
+		return def
+	}
+	return envVar
+}
+
 func createProductImportUseCase(ctx context.Context) usecases.ProductImportUseCase {
-	service := services.NewProductImportService(repositories.NewProductRepository(mongodb.NewClient("mongodb://localhost:27017", ctx)))
+	mongoUrl := getEnvVarOrDefault("MONGODB_URL", "mongodb://localhost:27017")
+	service := services.NewProductImportService(repositories.NewProductRepository(mongodb.NewClient(mongoUrl, ctx)))
 	bus := infservices.NewMessageBus()
 	return usecases.NewProductImportUseCase(service, bus)
 }
