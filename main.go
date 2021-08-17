@@ -1,13 +1,20 @@
 package main
 
 import (
-	"catalog/api/handlers"
+	"catalog/cmd"
+	"context"
+	"flag"
+	"os"
 
-	"github.com/gin-gonic/gin"
+	"github.com/google/subcommands"
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {
-	r := gin.Default()
-	handlers.StartCatalog(r)
-	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	log.SetFormatter(&log.JSONFormatter{})
+	subcommands.Register(&cmd.ImportCatalogProducts{}, "")
+	subcommands.Register(&cmd.RunCatalogApi{}, "")
+	flag.Parse()
+	ctx := context.Background()
+	os.Exit(int(subcommands.Execute(ctx)))
 }
