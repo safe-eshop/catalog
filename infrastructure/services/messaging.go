@@ -41,6 +41,6 @@ func (b rabbitmqBus) Publish(ctx context.Context, p services.ProductCreated) err
 	return nil
 }
 
-func NewMessageBus(client *rabbitmq.RabbitMqClient) rabbitmqBus {
-	return rabbitmqBus{Client: client}
+func NewMessageBus(client *rabbitmq.RabbitMqClient, exchange, topic string) rabbitmqBus {
+	return rabbitmqBus{Client: client, ExchangeName: exchange, Topic: topic}
 }

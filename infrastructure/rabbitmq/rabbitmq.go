@@ -24,10 +24,13 @@ func NewRabbitMqClient(connStr string) (*RabbitMqClient, error) {
 }
 
 func (client *RabbitMqClient) Close() error {
-	err1 := client.Channel.Close()
-	err2 := client.Connection.Close()
-	if err1 != nil || err2 != nil {
-		return fmt.Errorf("Channel Close Error %w; Client Connection Close Error %w", err1, err2)
+	err := client.Channel.Close()
+	if err != nil {
+		return fmt.Errorf("channel close error %w", err)
+	}
+	err = client.Connection.Close()
+	if err != nil {
+		return fmt.Errorf("client connection close error %w", err)
 	}
 	return nil
 }

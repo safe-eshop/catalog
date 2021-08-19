@@ -32,7 +32,7 @@ func (p *ImportCatalogProducts) SetFlags(f *flag.FlagSet) {
 	f.StringVar(&p.mongoUrl, "mongoUrl", getEnvVarOrDefault("MONGODB_URL", "mongodb://localhost:27017"), "mongofb connection string")
 	f.StringVar(&p.exchange, "exchange", getEnvVarOrDefault("RABBITMQ_EXCHANGE", "catalog"), "rabbitmq exchange")
 	f.StringVar(&p.topic, "topic", getEnvVarOrDefault("RABBITMQ_TOPIC", "products"), "rabbitmq import topic")
-	f.StringVar(&p.rabbitmqConnection, "rabbitmqConnection", getEnvVarOrDefault("RABBITMQ_CONNECTION", "amqp://guest:guest@127.0.0.1:5672/"), "rabbitmq connection string")
+	f.StringVar(&p.rabbitmqConnection, "rabbitmqConnection", getEnvVarOrDefault("RABBITMQ_CONNECTION", "amqp://guest:guest@rabbitmq:5672/"), "rabbitmq connection string")
 }
 
 func getEnvVarOrDefault(env, def string) string {
@@ -45,7 +45,7 @@ func getEnvVarOrDefault(env, def string) string {
 
 func (p *ImportCatalogProducts) createProductImportUseCase(ctx context.Context, client *rabbitmq.RabbitMqClient) usecases.ProductImportUseCase {
 	service := services.NewProductImportService(repositories.NewProductRepository(mongodb.NewClient(p.mongoUrl, ctx)))
-	bus := infservices.NewMessageBus(client)
+	bus := infservices.NewMessageBus(client, p.exchange, p.topic)
 	return usecases.NewProductImportUseCase(service, bus)
 }
 
