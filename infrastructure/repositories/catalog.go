@@ -58,8 +58,10 @@ func (repo mongoRepo) GetByIds(ctx context.Context, ids []model.ProductId) ([]*m
 
 func (repo mongoRepo) Insert(ctx context.Context, product model.Product) error {
 	col := repo.db.Collection(ProductsCollectionName)
+	opt := options.Update().SetUpsert(true)
 	dbProduct := inframodel.NewMongoProduct(product)
-	_, err := col.InsertOne(ctx, dbProduct)
+	filter := bson.D{{"_id", dbProduct.ProductID}}
+	_, err := col.UpdateOne(ctx, filter, inframodel.ToInsertMongoDocument(dbProduct), opt)
 	return err
 }
 

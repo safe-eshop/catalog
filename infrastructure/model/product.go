@@ -1,6 +1,10 @@
 package model
 
-import "catalog/core/model"
+import (
+	"catalog/core/model"
+
+	"go.mongodb.org/mongo-driver/bson"
+)
 
 type MongoProduct struct {
 	ProductID      int      `json:"_id,omitempty" bson:"_id,omitempty"`
@@ -13,6 +17,10 @@ type MongoProduct struct {
 
 func NewMongoProduct(product model.Product) MongoProduct {
 	return MongoProduct{ProductID: product.ID, Name: product.Name, Brand: product.Brand, Description: product.Description, Price: product.Price, PromotionPrice: product.PromotionPrice}
+}
+
+func ToInsertMongoDocument(product MongoProduct) bson.D {
+	return bson.D{{"$set", product}}
 }
 func NewMongoProducts(products []model.Product) []MongoProduct {
 	result := make([]MongoProduct, len(products))
