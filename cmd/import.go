@@ -15,7 +15,10 @@ import (
 )
 
 type ImportCatalogProducts struct {
-	mongoUrl string
+	mongoUrl           string
+	rabbitmqConnection string
+	exchange           string
+	topic              string
 }
 
 func (*ImportCatalogProducts) Name() string     { return "import-products" }
@@ -26,6 +29,9 @@ func (*ImportCatalogProducts) Usage() string {
 
 func (p *ImportCatalogProducts) SetFlags(f *flag.FlagSet) {
 	f.StringVar(&p.mongoUrl, "mongoUrl", getEnvVarOrDefault("MONGODB_URL", "mongodb://localhost:27017"), "mongofb connection string")
+	f.StringVar(&p.exchange, "exchange", getEnvVarOrDefault("RABBIT_EXCHANGE", "mongodb://localhost:27017"), "mongofb connection string")
+	f.StringVar(&p.topic, "topic", getEnvVarOrDefault("MONGODB_URL", "mongodb://localhost:27017"), "mongofb connection string")
+	f.StringVar(&p.rabbitmqConnection, "rabbitmqConnection", getEnvVarOrDefault("MONGODB_URL", "mongodb://localhost:27017"), "mongofb connection string")
 }
 
 func getEnvVarOrDefault(env, def string) string {
