@@ -24,12 +24,16 @@ type catalogHandler struct {
 	ProductService services.ProductService
 }
 
-func createCatalog(ctx context.Context) catalogHandler {
-	return catalogHandler{ProductService: services.NewProductService(repositories.NewProductRepository(mongodb.NewClient("mongodb://localhost:27017", ctx)))}
+type CatalogStartParameters struct {
+	MongoDBConnectionString string
 }
 
-func StartCatalog(g *gin.Engine) {
-	catalog := createCatalog(context.TODO())
+func createCatalog(ctx context.Context, parameters CatalogStartParameters) catalogHandler {
+	return catalogHandler{ProductService: services.NewProductService(repositories.NewProductRepository(mongodb.NewClient(parameters.MongoDBConnectionString, ctx)))}
+}
+
+func StartCatalog(ctx context.Context, g *gin.Engine, parameters CatalogStartParameters) {
+	catalog := createCatalog(ctx, parameters)
 	g.GET("/products/:id", func(c *gin.Context) {
 		idStr := c.Param("id")
 		id, err := strconv.Atoi(idStr)

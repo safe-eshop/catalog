@@ -25,7 +25,8 @@ func (p *RunCatalogApi) SetFlags(f *flag.FlagSet) {
 
 func (p *RunCatalogApi) Execute(ctx context.Context, f *flag.FlagSet, _ ...interface{}) subcommands.ExitStatus {
 	r := gin.Default()
-	handlers.StartCatalog(r)
+	cfg := handlers.CatalogStartParameters{MongoDBConnectionString: p.mongoUrl}
+	handlers.StartCatalog(ctx, r, cfg)
 	err := r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 	if err != nil {
 		return subcommands.ExitFailure
