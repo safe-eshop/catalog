@@ -19,8 +19,16 @@ func NewMongoProduct(product model.Product) MongoProduct {
 	return MongoProduct{ProductID: product.ID, Name: product.Name, Brand: product.Brand, Description: product.Description, Price: product.Price, PromotionPrice: product.PromotionPrice}
 }
 
-func ToInsertMongoDocument(product MongoProduct) bson.D {
-	return bson.D{{"$set", product}}
+func ToInsertMongoDocument(product MongoProduct) bson.M {
+	p := bson.M{
+		"_id":            product.ProductID,
+		"name":           product.Name,
+		"brand":          product.Brand,
+		"description":    product.Description,
+		"price":          product.Price,
+		"promotionPrice": product.PromotionPrice,
+	}
+	return bson.M{"$set": p}
 }
 func NewMongoProducts(products []model.Product) []MongoProduct {
 	result := make([]MongoProduct, len(products))
