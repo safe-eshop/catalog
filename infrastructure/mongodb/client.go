@@ -18,14 +18,14 @@ func NewClient(connectionString string, ctx context.Context) *mongo.Client {
 	client, err := mongo.Connect(ctx, clientOptions)
 
 	if err != nil {
-		log.Fatal(err)
+		log.WithContext(ctx).WithField("ConnectionString", connectionString).WithError(err).Fatal("Error when trying connect to mongo")
 	}
 
 	// Check the connection
 	err = client.Ping(ctx, nil)
 
 	if err != nil {
-		log.WithError(err).Fatal("Error when trying connect to mongo")
+		log.WithContext(ctx).WithField("ConnectionString", connectionString).WithError(err).Fatal("Error when trying ping mongo")
 	}
 
 	return client

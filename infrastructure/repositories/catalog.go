@@ -21,7 +21,7 @@ type mongoRepo struct {
 
 func (repo mongoRepo) GetById(ctx context.Context, id model.ProductId) (*model.Product, error) {
 	col := repo.db.Collection(ProductsCollectionName, &options.CollectionOptions{})
-	filter := bson.D{{"_id", id}}
+	filter := bson.M{"_id": id}
 	var result inframodel.MongoProduct
 	err := col.FindOne(ctx, filter).Decode(&result)
 	if err == mongo.ErrNoDocuments {
@@ -60,7 +60,7 @@ func (repo mongoRepo) Insert(ctx context.Context, product model.Product) error {
 	col := repo.db.Collection(ProductsCollectionName)
 	opt := options.Update().SetUpsert(true)
 	dbProduct := inframodel.NewMongoProduct(product)
-	filter := bson.D{{"_id", dbProduct.ProductID}}
+	filter := bson.M{"_id": product.ID}
 	_, err := col.UpdateOne(ctx, filter, inframodel.ToInsertMongoDocument(dbProduct), opt)
 	return err
 }

@@ -4,9 +4,11 @@ import (
 	"catalog/api/handlers"
 	"context"
 	"flag"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/subcommands"
+	log "github.com/sirupsen/logrus"
 )
 
 type RunCatalogApi struct {
@@ -24,6 +26,8 @@ func (p *RunCatalogApi) SetFlags(f *flag.FlagSet) {
 }
 
 func (p *RunCatalogApi) Execute(ctx context.Context, f *flag.FlagSet, _ ...interface{}) subcommands.ExitStatus {
+	log.SetFormatter(&log.JSONFormatter{})
+	log.SetOutput(os.Stdout)
 	r := gin.Default()
 	cfg := handlers.CatalogStartParameters{MongoDBConnectionString: p.mongoUrl}
 	handlers.StartCatalog(ctx, r, cfg)
