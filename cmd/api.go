@@ -29,6 +29,11 @@ func (p *RunCatalogApi) Execute(ctx context.Context, f *flag.FlagSet, _ ...inter
 	log.SetFormatter(&log.JSONFormatter{})
 	log.SetOutput(os.Stdout)
 	r := gin.Default()
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
 	cfg := handlers.CatalogStartParameters{MongoDBConnectionString: p.mongoUrl}
 	handlers.StartCatalog(ctx, r, cfg)
 	err := r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
